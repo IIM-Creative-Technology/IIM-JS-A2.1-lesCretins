@@ -1,6 +1,6 @@
 
 
-let deck = document.querySelector('.deck');
+let deck = document.querySelector('div.deck');
 let pokemonStock = document.querySelector(".poke-stock");
 
 async function getData(url){
@@ -22,14 +22,20 @@ async function getPokemonData(name){
 
 //drag drop functions :
 function allowDrop(e){
-    e.preventDefault();
+    if(e.target.classList.contains('deck') || e.target.classList.contains('poke-stock')){
+        e.preventDefault();
+    }
 }
 function dragPokemon(e){
     e.dataTransfer.setData('pokemon', e.target.id);
 }
 function dropPokemon(e){
-    let pokemonId = e.dataTransfer.getData('pokemon');
-    e.target.appendChild(document.querySelector('#'+pokemonId));
+    console.log(e.target);
+
+    if(e.target.classList.contains('deck') || e.target.classList.contains('poke-stock')){
+        let pokemonId = e.dataTransfer.getData('pokemon');
+        e.target.appendChild(document.querySelector('#'+pokemonId));
+    }
 }
 
 //afficher les 10 premiers pokémons dans le stock
