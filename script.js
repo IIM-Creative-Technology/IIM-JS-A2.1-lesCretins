@@ -2,7 +2,9 @@
 async function getData(url){
     let request = await fetch(url);
     if(request.status !== 404){
-        return request.json().then(data => data);
+        return request.json().then((data) => {
+            return data
+        });
     }else{
         return false;
     }
@@ -33,11 +35,26 @@ const typeColor = {
 };
 
 //search
+
+
 function findPokemon(query) {
     return allPokemons.filter(function(entry) {
-        return entry.name.includes(query);
+        return (entry.name.includes(query));
     });
 }
+
+function isType(pokemon, type){
+    return getData("https://pokeapi.co/api/v2/type/"+type).then(data =>{
+        let isType = false;
+        data['pokemon'].forEach(poke => {
+            if(poke['pokemon']['name'] === pokemon){
+                isType = true;
+            }
+        })
+        return isType;
+    })
+}
+
 let searchBar = document.querySelector('#search');
 let amount = document.querySelector('p.amount');
 searchBar.addEventListener('keyup', ()=>{
@@ -135,7 +152,6 @@ pokemonStock.ondrop = dropPokemon;
 window.onload = async () => {
     await getData("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0").then((data)=>{
         allPokemons = data['results'];
-        console.log(allPokemons)
     });
     getDefaultPokemon();
 }
