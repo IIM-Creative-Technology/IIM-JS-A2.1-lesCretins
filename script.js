@@ -11,6 +11,27 @@ async function getData(url){
 //let's list all Pokémons for name search
 let allPokemons;
 
+const typeColor = {
+    "normal": "#F5F5DC",
+    "fire": "#F08030",
+    "water": "#87CEEB",
+    "electric": "#F8D030",
+    "grass": "#90EE90",
+    "ice": "#E0FFFF",
+    "fighting": "#F08080",
+    "poison": "#9370DB",
+    "ground": "#D2B48C",
+    "flying": "#E6E6FA",
+    "psychic": "#FF69B4",
+    "bug": "#90EE90",
+    "rock": "#B0C4DE",
+    "ghost": "#9370DB",
+    "dragon": "#9932CC",
+    "dark": "#A9A9A9",
+    "steel": "#B0C4DE",
+    "fairy": "#FFB6C1"
+};
+
 //search
 function findPokemon(query) {
     return allPokemons.filter(function(entry) {
@@ -78,12 +99,13 @@ function generateCard(pokemon){
     imgContainer.classList.add('img-container');
     img.src = pokemon['sprites']['front_default'];
     img.draggable = false;
-    p.innerHTML = pokemon['name']+" ("+pokemon['id']+")";
+    p.innerHTML = pokemon['name'].split('-');
     let card = document.createElement('div');
     card.classList.add('poke-card');
-    imgContainer.appendChild(img)
-    card.appendChild(imgContainer)
     card.appendChild(p);
+    imgContainer.appendChild(img);
+    card.appendChild(imgContainer);
+    card.style.borderColor = typeColor[pokemon['types'][0]['type']['name']]
     card.id = 'pokemon_'+pokemon['id'];
     card.draggable = true;
     card.ondragstart = dragPokemon;
