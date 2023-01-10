@@ -32,21 +32,45 @@ const typeColor = {
     "fairy": "#FFB6C1"
 };
 
+let myType = 'electric';
+
 //search
-function findPokemon(query) {
-    return allPokemons.filter(function(entry) {
-        return entry.name.includes(query);
-    });
+async function isType(pokemon, type){
+    let data = await getData("https://pokeapi.co/api/v2/type/"+type);
+    let isType = false;
+    data['pokemon'].forEach(poke => {
+        if(poke['pokemon']['name'] === pokemon){
+            isType = true;
+        }
+    })
+    return isType;
 }
+
+//async filter by Tamás Sallai
+async function filter(array, condition){
+    const results = await Promise.all(array.map(condition));
+    return array.filter((_v, index) => results[index]);
+}
+
+async function findPokemon(query) {
+    return await filter(allPokemons, async (entry) => {
+        if(entry.name.includes(query)){
+            return await isType(entry.name, myType);
+        }else{
+            return false;
+        }
+    })
+}
+
 let searchBar = document.querySelector('#search');
 let amount = document.querySelector('p.amount');
-searchBar.addEventListener('keyup', ()=>{
+searchBar.addEventListener('keyup', async ()=>{
     stockReset();
     if(searchBar.value === ''){
         getDefaultPokemon();
         amount.innerHTML = ''
     }else{
-        let result = findPokemon(searchBar.value);
+        let result = await findPokemon(searchBar.value);
         amount.innerHTML = 'Résultats : '+result.length;
         let i = 0;
         result.forEach((pokemon) => {
@@ -76,8 +100,6 @@ function dragPokemon(e){
     e.dataTransfer.setData('pokemon', e.target.id);
 }
 function dropPokemon(e){
-    console.log(e.target);
-
     if((e.target.classList.contains('cell') && e.target.childElementCount === 0)
         || e.target.classList.contains('poke-stock')){
         let pokemonId = e.dataTransfer.getData('pokemon');
@@ -92,6 +114,9 @@ async function getPokemonData(name){
         return pokemon;
     }
 }
+
+let amountCard = 0;
+
 function generateCard(pokemon){
     let img = document.createElement('img');
     let p = document.createElement('p');
@@ -99,14 +124,15 @@ function generateCard(pokemon){
     imgContainer.classList.add('img-container');
     img.src = pokemon['sprites']['front_default'];
     img.draggable = false;
-    p.innerHTML = pokemon['name'].split('-');
+    p.innerHTML = pokemon['name'].replace('-', ' ');
     let card = document.createElement('div');
     card.classList.add('poke-card');
     card.appendChild(p);
     imgContainer.appendChild(img);
     card.appendChild(imgContainer);
     card.style.borderColor = typeColor[pokemon['types'][0]['type']['name']]
-    card.id = 'pokemon_'+pokemon['id'];
+    card.id = 'card_' + amountCard + '_'+pokemon['id'];
+    amountCard++;
     card.draggable = true;
     card.ondragstart = dragPokemon;
     return card;
@@ -135,7 +161,7 @@ pokemonStock.ondrop = dropPokemon;
 window.onload = async () => {
     await getData("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0").then((data)=>{
         allPokemons = data['results'];
-        console.log(allPokemons)
     });
     getDefaultPokemon();
+    restoreDeck();
 }
