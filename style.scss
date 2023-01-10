@@ -1,9 +1,25 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 main{
   .poke-card{
     border: 2px solid red;
     padding: 10px;
     background-color: white;
     border-radius: 25px;
+    height: 175px;
+    cursor: grab;
+    .img-container{
+      display: flex;
+      justify-content: center;
+    }
+    p{
+      text-align: center;
+      width: 150px;
+    }
   }
   .poke-stock{
     display: flex;
@@ -16,9 +32,11 @@ main{
   .deck{
     display: flex;
     height: 200px;
-    border: 2px solid red;
     margin: 25px;
-    background-color: white;
-    border-radius: 25px;
+    .cell{
+      background-color: white;
+      border: 5px solid gray;
+      width: 100%;
+    }
   }
 }

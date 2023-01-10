@@ -1,8 +1,24 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 main .poke-card {
   border: 2px solid red;
   padding: 10px;
   background-color: white;
   border-radius: 25px;
+  height: 175px;
+  cursor: grab;
+}
+main .poke-card .img-container {
+  display: flex;
+  justify-content: center;
+}
+main .poke-card p {
+  text-align: center;
+  width: 150px;
 }
 main .poke-stock {
   display: flex;
@@ -15,10 +31,12 @@ main .poke-stock {
 main .deck {
   display: flex;
   height: 200px;
-  border: 2px solid red;
   margin: 25px;
+}
+main .deck .cell {
   background-color: white;
-  border-radius: 25px;
+  border: 5px solid gray;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
