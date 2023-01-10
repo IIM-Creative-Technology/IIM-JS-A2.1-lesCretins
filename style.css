@@ -1,8 +1,24 @@
-main .pokemon {
+main .poke-card {
+  border: 2px solid red;
+  padding: 10px;
+  background-color: white;
+  border-radius: 25px;
+}
+main .poke-stock {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  background-color: #c7c7c7;
+  padding: 40px;
+}
+main .deck {
+  display: flex;
+  height: 200px;
+  border: 2px solid red;
+  margin: 25px;
+  background-color: white;
+  border-radius: 25px;
 }
 
 /*# sourceMappingURL=style.css.map */
