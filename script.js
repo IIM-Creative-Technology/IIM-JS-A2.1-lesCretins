@@ -32,7 +32,7 @@ const typeColor = {
     "fairy": "#FFB6C1"
 };
 
-let myType = 'electric';
+let myType = '';
 
 //search
 async function isType(pokemon, type){
@@ -46,16 +46,34 @@ async function isType(pokemon, type){
     return isType;
 }
 
+
+function test1(id){
+    return getData("https://pokeapi.co/api/v2/pokemon/"+id).then(data => {
+        return  data['name'];
+    })
+}
+
+async function test2(id){
+    let data = await getData("https://pokeapi.co/api/v2/pokemon/" + id);
+    return data['name'];
+}
+
+
 //async filter by Tamás Sallai
 async function filter(array, condition){
     const results = await Promise.all(array.map(condition));
     return array.filter((_v, index) => results[index]);
 }
 
+
 async function findPokemon(query) {
     return await filter(allPokemons, async (entry) => {
         if(entry.name.includes(query)){
-            return await isType(entry.name, myType);
+            if(myType !==''){
+                return await isType(entry.name, myType);
+            }else{
+                return true;
+            }
         }else{
             return false;
         }
@@ -86,14 +104,17 @@ searchBar.addEventListener('keyup', async ()=>{
 //elements
 let deck = document.querySelectorAll('div.deck>div.cell');
 let pokemonStock = document.querySelector(".poke-stock");
+let trash = document.querySelector("#trash");
 
 
 
 //drag drop functions :
 function allowDrop(e){
     if((e.target.classList.contains('cell') && e.target.childElementCount === 0)
+        || e.target.id === 'trash'
         || e.target.classList.contains('poke-stock')){
         e.preventDefault();
+    }else{
     }
 }
 function dragPokemon(e){
@@ -101,9 +122,14 @@ function dragPokemon(e){
 }
 function dropPokemon(e){
     if((e.target.classList.contains('cell') && e.target.childElementCount === 0)
+        || e.target.id === 'trash'
         || e.target.classList.contains('poke-stock')){
         let pokemonId = e.dataTransfer.getData('pokemon');
-        e.target.appendChild(document.querySelector('#'+pokemonId));
+        if(e.target.id === 'trash'){
+            document.querySelector('#'+pokemonId).remove();
+        }else{
+            e.target.appendChild(document.querySelector('#'+pokemonId));
+        }
     }
 }
 
@@ -157,6 +183,8 @@ deck.forEach(cell => cell.ondragover = allowDrop)
 deck.forEach(cell => cell.ondrop = dropPokemon)
 pokemonStock.ondragover = allowDrop;
 pokemonStock.ondrop = dropPokemon;
+trash.ondragover = allowDrop;
+trash.ondrop = dropPokemon;
 
 window.onload = async () => {
     await getData("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0").then((data)=>{

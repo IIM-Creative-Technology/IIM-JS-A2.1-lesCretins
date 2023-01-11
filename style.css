@@ -30,15 +30,48 @@ main .poke-stock {
   background-color: #815757;
   padding: 40px;
 }
+main .hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  margin: 25px auto;
+  gap: 30px;
+}
+main .trash {
+  height: 100px;
+  width: 100px;
+}
+main .trash img {
+  height: 100%;
+  width: 100%;
+}
 main .deck {
   display: flex;
-  height: 200px;
-  margin: 25px;
+  gap: 10px;
+  flex-wrap: wrap;
+  height: 100px;
+  width: fit-content;
 }
 main .deck .cell {
   background-color: white;
-  border: 5px solid gray;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.23);
+  width: 100px;
+}
+main .deck .cell .poke-card {
+  border-radius: 0;
+  border-width: 0 0 10px 0;
+  background: transparent;
+  padding: 0;
+  height: 100px;
   width: 100%;
+}
+main .deck .cell .poke-card p {
+  display: none;
+}
+main .deck .cell .poke-card img {
+  width: 100%;
+  height: 100%;
 }
 main .search {
   display: flex;
