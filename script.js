@@ -57,9 +57,23 @@ async function findPokemon(query) {
     return await filter(allPokemons, async (entry) => {
         if(entry.name.includes(query)){
             if (type.value !== ""){
-                return await isType(entry.name, type.value);
+                let type =  await isType(entry.name, type.value);
+                if(type){
+                    //on va vérifier la génération
+                    if(generation !== ''){
+                        //faire des trucs
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
             }else{
-                return true;
+                if(generation !== ''){
+                    //faire des trucs
+                }else{
+                    return true;
+                }
             }
 
         }else{
