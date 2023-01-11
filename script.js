@@ -2,9 +2,7 @@
 async function getData(url){
     let request = await fetch(url);
     if(request.status !== 404){
-        return request.json().then((data) => {
-            return data
-        });
+        return await request.json()
     }else{
         return false;
     }
@@ -37,13 +35,83 @@ const typeColor = {
 //search
 
 
-function findPokemon(query) {
-    return allPokemons.filter(function(entry) {
-        return (entry.name.includes(query));
-    });
+
+
+
+let searchBar = document.querySelector('#search')
+let amount = document.querySelector('.amount')
+let type = document.querySelector('#type')
+let generation = document.querySelector('#generation')
+
+// type.addEventListener('click', function(){
+//     // console.log(type.value)
+// })
+
+
+//async filter by Tamás Sallai
+async function filter(array, condition){
+    const results = await Promise.all(array.map(condition));
+    return array.filter((_v, index) => results[index]);
 }
 
-function isType(pokemon, type){
+//find pokemon based on various conditions
+async function findPokemon(query) {
+    return await filter(allPokemons, async (entry) => {
+        if(entry.name.includes(query)){
+            if (type.value !== ""){
+                let isTypeGood =  await isType(entry.name, type.value);
+                if(isTypeGood){
+                    //on va vérifier la génération
+                    if(generation.value !== ''){
+                        return isGeneration(entry.name, generation.value)
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return false;
+
+                }
+            }else{
+                if(generation.value !== ''){
+                    console.log(generation.value)
+                    return  isGeneration(entry.name, generation.value)
+                }else{
+                    return true;
+                }
+            }
+
+        }else{
+            return false;
+        }
+    })
+}
+
+
+
+
+
+
+// const pokeName = 'charmander';
+
+// fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
+//   .then(response => response.json())
+//   .then(data => {
+//     const generation = data.generation.name;
+//     console.log(`${pokeName} est de génération ${generation}`);
+//   })
+//   .catch(error => console.error(error));
+
+
+
+
+
+async function isGeneration(pokemon, generation){
+    return getData("https://pokeapi.co/api/v2/pokemon/"+pokemon).then(data =>{
+        return Object.keys(data['sprites']['versions']).includes(generation);
+    })
+}
+
+async function isType(pokemon, type){
     return getData("https://pokeapi.co/api/v2/type/"+type).then(data =>{
         let isType = false;
         data['pokemon'].forEach(poke => {
@@ -55,15 +123,15 @@ function isType(pokemon, type){
     })
 }
 
-let searchBar = document.querySelector('#search');
-let amount = document.querySelector('p.amount');
-searchBar.addEventListener('keyup', ()=>{
+searchBar.addEventListener('keyup', async ()=>{ //on fait une fonction async
     stockReset();
     if(searchBar.value === ''){
+        // vérifier que
         getDefaultPokemon();
         amount.innerHTML = ''
     }else{
-        let result = findPokemon(searchBar.value);
+        let result = await findPokemon(searchBar.value); //ducoup on await
+        console.log(result);
         amount.innerHTML = 'Résultats : '+result.length;
         let i = 0;
         result.forEach((pokemon) => {
