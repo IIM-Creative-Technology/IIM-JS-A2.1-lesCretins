@@ -47,11 +47,14 @@ main .trash img {
   width: 100%;
 }
 main .deck {
-  display: flex;
+  display: none;
   gap: 10px;
   flex-wrap: wrap;
   height: 100px;
   width: fit-content;
+}
+main .deck.active {
+  display: flex;
 }
 main .deck .cell {
   background-color: white;

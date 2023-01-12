@@ -52,7 +52,11 @@ main{
   }
 
   .deck{
-    display: flex;
+    &.active{
+      display: flex;
+    }
+
+    display: none;
     gap: 10px;
     flex-wrap: wrap;
     height: 100px;

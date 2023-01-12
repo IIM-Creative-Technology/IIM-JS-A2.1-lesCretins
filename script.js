@@ -46,19 +46,6 @@ async function isType(pokemon, type){
     return isType;
 }
 
-
-function test1(id){
-    return getData("https://pokeapi.co/api/v2/pokemon/"+id).then(data => {
-        return  data['name'];
-    })
-}
-
-async function test2(id){
-    let data = await getData("https://pokeapi.co/api/v2/pokemon/" + id);
-    return data['name'];
-}
-
-
 //async filter by Tamás Sallai
 async function filter(array, condition){
     const results = await Promise.all(array.map(condition));
@@ -100,11 +87,31 @@ searchBar.addEventListener('keyup', async ()=>{
     }
 })
 
+let deckContainers = document.querySelectorAll('div.deck');
+
+//let's generate the big deck
+deckContainers.forEach((deck, index) => {
+    let cell = document.createElement('div');
+    cell.classList.add('cell');
+    for(let i = 0; i<6; i++){
+        deck.appendChild(cell.cloneNode());
+    }
+})
+//put the first as active
+deckContainers[0].classList.add('active');
 
 //elements
-let deck = document.querySelectorAll('div.deck>div.cell');
-let pokemonStock = document.querySelector(".poke-stock");
+let allCell = document.querySelectorAll('div.cell');
+let pokemonStock = document.querySelector(".poke-" + "stock");
 let trash = document.querySelector("#trash");
+let deckSelector = document.querySelector('#slots');
+
+deckSelector.addEventListener('change', function () {
+    deckContainers.forEach((deck) => {
+        deck.classList.remove('active');
+    })
+    deckContainers[parseInt(this.value) - 1].classList.add('active')
+})
 
 
 
@@ -179,8 +186,8 @@ function stockReset(){
 
 
 //events
-deck.forEach(cell => cell.ondragover = allowDrop)
-deck.forEach(cell => cell.ondrop = dropPokemon)
+allCell.forEach(cell => cell.ondragover = allowDrop)
+allCell.forEach(cell => cell.ondrop = dropPokemon)
 pokemonStock.ondragover = allowDrop;
 pokemonStock.ondrop = dropPokemon;
 trash.ondragover = allowDrop;
@@ -191,5 +198,6 @@ window.onload = async () => {
         allPokemons = data['results'];
     });
     getDefaultPokemon();
+    //storage
     restoreDeck();
 }
