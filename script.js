@@ -78,20 +78,6 @@ async function findPokemon(query) {
     })
 }
 
-async function isType(pokemon, type){
-    return getData("https://pokeapi.co/api/v2/type/"+type).then(data =>{
-        let isType = false;
-        data['pokemon'].forEach(poke => {
-            if(poke['pokemon']['name'] === pokemon){
-                isType = true;
-
-            }
-        }else{
-            return false;
-        }
-    })
-}
-
 
 async function addPokemonIfQuery(){
     let result = await findPokemon(searchBar.value); //ducoup on await
@@ -99,8 +85,8 @@ async function addPokemonIfQuery(){
     let i = 0;
     result.forEach((pokemon) => {
         if(i<10){
-            addToDeck(pokemon['name'])
-            i++
+            addToDeck(pokemon['name']);
+            i++;
         }
     })
 }
