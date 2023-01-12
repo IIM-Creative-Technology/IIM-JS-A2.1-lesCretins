@@ -41,6 +41,8 @@ const typeColor = {
 let searchBar = document.querySelector('#search')
 let amount = document.querySelector('.amount')
 let type = document.querySelector('#type')
+let generation = document.querySelector('#generation')
+
 // type.addEventListener('click', function(){
 //     // console.log(type.value)
 // })
@@ -57,20 +59,23 @@ async function findPokemon(query) {
     return await filter(allPokemons, async (entry) => {
         if(entry.name.includes(query)){
             if (type.value !== ""){
-                let type =  await isType(entry.name, type.value);
-                if(type){
+                let isTypeGood =  await isType(entry.name, type.value);
+                if(isTypeGood){
                     //on va vérifier la génération
-                    if(generation !== ''){
-                        //faire des trucs
+                    if(generation.value !== ''){
+                        console.log(generation.value)
+                        return await isGeneration(entry.name, generation.value)
                     }else{
                         return true;
                     }
                 }else{
                     return false;
+
                 }
             }else{
-                if(generation !== ''){
-                    //faire des trucs
+                if(generation.value !== ''){
+                    console.log(generation.value)
+                    return  await isGeneration(entry.name, generation.value)
                 }else{
                     return true;
                 }
@@ -81,6 +86,56 @@ async function findPokemon(query) {
         }
     })
 }
+
+
+
+
+
+
+// const pokeName = 'charmander';
+
+// fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
+//   .then(response => response.json())
+//   .then(data => {
+//     const generation = data.generation.name;
+//     console.log(`${pokeName} est de génération ${generation}`);
+//   })
+//   .catch(error => console.error(error));
+
+
+
+
+
+async function isGeneration(pokemon, generation){
+    return getData("https://pokeapi.co/api/v2/pokemon/"+pokemon).then(data =>{
+        console.log(Object.keys(data['sprites']['versions']).includes(generation))
+        return Object.keys(data['sprites']['versions']).includes(generation);
+})
+}
+
+
+// async function getPokemonInfo(pokemonId) {
+    
+//       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+ 
+//       const data = await response.json();
+//       console.log(data)
+//       const name = data.name;
+//       const generation = data.generation.name;
+//       console.log(`Name: ${name}\nGeneration: ${generation}`);
+    
+//     //   console.error(error);
+    
+//   }
+  
+//   getPokemonInfo(25); // Example with pokemon id 25 (Pikachu)
+
+
+
+
+
+  
+
 
 async function isType(pokemon, type){
     return getData("https://pokeapi.co/api/v2/type/"+type).then(data =>{
@@ -97,6 +152,7 @@ async function isType(pokemon, type){
 searchBar.addEventListener('keyup', async ()=>{ //on fait une fonction async
     stockReset();
     if(searchBar.value === ''){
+        // vérifier que 
         getDefaultPokemon();
         amount.innerHTML = ''
     }else{
