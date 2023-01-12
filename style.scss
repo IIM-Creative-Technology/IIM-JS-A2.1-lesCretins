@@ -14,6 +14,12 @@ main{
     border-radius: 15px;
     height: 175px;
     cursor: grab;
+
+
+
+
+
+
     .img-container{
       display: flex;
       justify-content: center;
@@ -22,6 +28,11 @@ main{
       text-align: center;
       width: 150px;
     }
+
+
+  }
+
+
   }
   .poke-stock{
     display: flex;
@@ -30,21 +41,35 @@ main{
     gap: 10px;
     background-color: #815757;
     padding: 40px;
+
   }
   .deck{
     display: flex;
     height: 200px;
     margin: 25px;
     .cell{
-      background-color: white;
+
       border: 5px solid gray;
       width: 100%;
+      .poke-card{
+        background-color: red;
+
+      }
+
+
+
     }
   }
+
   .search{
     display: flex;
     padding: 30px;
     justify-content: center;
     gap: 10px;
   }
-}
+
+
+
+
+
+

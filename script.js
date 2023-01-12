@@ -1,3 +1,5 @@
+
+
 //function to get raw JSON data from URL
 async function getData(url){
     let request = await fetch(url);
@@ -113,6 +115,26 @@ function generateCard(pokemon){
     let img = document.createElement('img');
     let p = document.createElement('p');
     let imgContainer = document.createElement('div');
+
+
+
+    let imginfo = document.createElement('img');
+    imginfo.src = "media/information.png";
+    imginfo.classList.add('info');
+
+
+    imginfo.style.width = "20px";
+    imginfo.style.height = "20px";
+    imginfo.style.marginRight = "10px";
+
+
+    imginfo.addEventListener('click', () => {
+        alert(pokemon['name'] + " est un pokémon de type " + pokemon['types'][0]['type']['name']);
+    }
+    )
+
+
+
     imgContainer.classList.add('img-container');
     img.src = pokemon['sprites']['front_default'];
     img.draggable = false;
@@ -120,7 +142,16 @@ function generateCard(pokemon){
     let card = document.createElement('div');
     card.classList.add('poke-card');
     card.appendChild(p);
+    card.appendChild(imginfo);
     imgContainer.appendChild(img);
+
+
+
+
+
+
+
+
     card.appendChild(imgContainer);
     card.style.borderColor = typeColor[pokemon['types'][0]['type']['name']]
     card.id = 'pokemon_'+pokemon['id'];
@@ -128,6 +159,7 @@ function generateCard(pokemon){
     card.ondragstart = dragPokemon;
     return card;
 }
+
 function addToDeck(name){
     getPokemonData(name).then(pokemon => {
         pokemonStock.appendChild(generateCard(pokemon));
@@ -155,3 +187,10 @@ window.onload = async () => {
     });
     getDefaultPokemon();
 }
+
+
+
+
+// info pokemon
+
+const popinfo = document.querySelector('.iconeinfo');

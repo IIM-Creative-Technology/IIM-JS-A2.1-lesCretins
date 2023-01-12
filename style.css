@@ -22,7 +22,8 @@ main .poke-card p {
   text-align: center;
   width: 150px;
 }
-main .poke-stock {
+
+.poke-stock {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -30,17 +31,21 @@ main .poke-stock {
   background-color: #815757;
   padding: 40px;
 }
-main .deck {
+
+.deck {
   display: flex;
   height: 200px;
   margin: 25px;
 }
-main .deck .cell {
-  background-color: white;
+.deck .cell {
   border: 5px solid gray;
   width: 100%;
 }
-main .search {
+.deck .cell .poke-card {
+  background-color: red;
+}
+
+.search {
   display: flex;
   padding: 30px;
   justify-content: center;
