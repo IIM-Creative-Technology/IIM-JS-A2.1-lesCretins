@@ -32,20 +32,20 @@ const typeColor = {
     "fairy": "#FFB6C1"
 };
 
-//search
-
-
-
 
 
 let searchBar = document.querySelector('#search')
 let amount = document.querySelector('.amount')
 let type = document.querySelector('#type')
-let generation = document.querySelector('#generation')
 
-// type.addEventListener('click', function(){
-//     // console.log(type.value)
-// })
+type.addEventListener('change',  async () => {
+    stockReset();
+    if(searchBar.value === ''){
+        getDefaultPokemon();
+    }else{
+        await addPokemonIfQuery();
+    }
+})
 
 
 //async filter by Tamás Sallai
@@ -57,57 +57,15 @@ async function filter(array, condition){
 //find pokemon based on various conditions
 async function findPokemon(query) {
     return await filter(allPokemons, async (entry) => {
-        if(entry.name.includes(query)){
-            if (type.value !== ""){
-                let isTypeGood =  await isType(entry.name, type.value);
-                if(isTypeGood){
-                    //on va vérifier la génération
-                    if(generation.value !== ''){
-                        return isGeneration(entry.name, generation.value)
-                    }else{
-                        return true;
-                    }
-                }else{
-                    return false;
-
-                }
+        if (entry.name.includes(query)) {
+            if (type.value !== "") {
+                return await isType(entry.name, type.value);
             }else{
-                if(generation.value !== ''){
-                    console.log(generation.value)
-                    return  isGeneration(entry.name, generation.value)
-                }else{
-                    return true;
-                }
+                return true;
             }
-
         }else{
             return false;
         }
-    })
-}
-
-
-
-
-
-
-// const pokeName = 'charmander';
-
-// fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
-//   .then(response => response.json())
-//   .then(data => {
-//     const generation = data.generation.name;
-//     console.log(`${pokeName} est de génération ${generation}`);
-//   })
-//   .catch(error => console.error(error));
-
-
-
-
-
-async function isGeneration(pokemon, generation){
-    return getData("https://pokeapi.co/api/v2/pokemon/"+pokemon).then(data =>{
-        return Object.keys(data['sprites']['versions']).includes(generation);
     })
 }
 
@@ -123,6 +81,18 @@ async function isType(pokemon, type){
     })
 }
 
+async function addPokemonIfQuery(){
+    let result = await findPokemon(searchBar.value); //ducoup on await
+    amount.innerHTML = 'Résultats : '+result.length;
+    let i = 0;
+    result.forEach((pokemon) => {
+        if(i<10){
+            addToDeck(pokemon['name'])
+            i++
+        }
+    })
+}
+
 searchBar.addEventListener('keyup', async ()=>{ //on fait une fonction async
     stockReset();
     if(searchBar.value === ''){
@@ -130,16 +100,7 @@ searchBar.addEventListener('keyup', async ()=>{ //on fait une fonction async
         getDefaultPokemon();
         amount.innerHTML = ''
     }else{
-        let result = await findPokemon(searchBar.value); //ducoup on await
-        console.log(result);
-        amount.innerHTML = 'Résultats : '+result.length;
-        let i = 0;
-        result.forEach((pokemon) => {
-            if(i<10){
-                addToDeck(pokemon['name'])
-                i++
-            }
-        })
+        await addPokemonIfQuery();
     }
 })
 
@@ -161,7 +122,6 @@ function dragPokemon(e){
     e.dataTransfer.setData('pokemon', e.target.id);
 }
 function dropPokemon(e){
-    console.log(e.target);
 
     if((e.target.classList.contains('cell') && e.target.childElementCount === 0)
         || e.target.classList.contains('poke-stock')){
@@ -202,10 +162,19 @@ function addToDeck(name){
     })
 }
 function getDefaultPokemon(){
-    for(let i = 1; i<31; i+=3){
-        addToDeck(i);
+    if(type.value === ''){
+        for(let i = 1; i<31; i+=3){
+            addToDeck(i);
+        }
+    }else{
+        getData("https://pokeapi.co/api/v2/type/"+type.value).then(data =>{
+            for(let i = 0; i<10; i++){
+                addToDeck(data['pokemon'][i]['pokemon']["name"]);
+            }
+        })
     }
 }
+
 function stockReset(){
     pokemonStock.innerHTML = '';
 }
