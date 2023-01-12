@@ -2,7 +2,9 @@
 async function getData(url){
     let request = await fetch(url);
     if(request.status !== 404){
-        return request.json().then(data => data);
+        return request.json().then((data) => {
+            return data
+        });
     }else{
         return false;
     }
