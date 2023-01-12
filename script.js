@@ -2,9 +2,7 @@
 async function getData(url){
     let request = await fetch(url);
     if(request.status !== 404){
-        return request.json().then((data) => {
-            return data
-        });
+        return await request.json()
     }else{
         return false;
     }
@@ -34,8 +32,6 @@ const typeColor = {
     "fairy": "#FFB6C1"
 };
 
-let myType = '';
-
 //search
 async function isType(pokemon, type){
     let data = await getData("https://pokeapi.co/api/v2/type/"+type);
@@ -48,18 +44,31 @@ async function isType(pokemon, type){
     return isType;
 }
 
+let searchBar = document.querySelector('#search')
+let amount = document.querySelector('.amount')
+let type = document.querySelector('#type')
+
+type.addEventListener('change',  async () => {
+    stockReset();
+    if(searchBar.value === ''){
+        getDefaultPokemon();
+    }else{
+        await addPokemonIfQuery();
+    }
+})
+
 //async filter by Tamás Sallai
 async function filter(array, condition){
     const results = await Promise.all(array.map(condition));
     return array.filter((_v, index) => results[index]);
 }
 
-
+//find pokemon based on various conditions
 async function findPokemon(query) {
     return await filter(allPokemons, async (entry) => {
-        if(entry.name.includes(query)){
-            if(myType !==''){
-                return await isType(entry.name, myType);
+        if (entry.name.includes(query)) {
+            if (type.value !== "") {
+                return await isType(entry.name, type.value);
             }else{
                 return true;
             }
@@ -69,23 +78,42 @@ async function findPokemon(query) {
     })
 }
 
-let searchBar = document.querySelector('#search');
-let amount = document.querySelector('p.amount');
-searchBar.addEventListener('keyup', async ()=>{
+async function isType(pokemon, type){
+    return getData("https://pokeapi.co/api/v2/type/"+type).then(data =>{
+        let isType = false;
+        data['pokemon'].forEach(poke => {
+            if(poke['pokemon']['name'] === pokemon){
+                isType = true;
+
+            }
+        }else{
+            return false;
+        }
+    })
+}
+
+
+async function addPokemonIfQuery(){
+    let result = await findPokemon(searchBar.value); //ducoup on await
+    amount.innerHTML = 'Résultats : '+result.length;
+    let i = 0;
+    result.forEach((pokemon) => {
+        if(i<10){
+            addToDeck(pokemon['name'])
+            i++
+        }
+    })
+}
+
+searchBar.addEventListener('keyup', async ()=>{ //on fait une fonction async
+
     stockReset();
     if(searchBar.value === ''){
+        // vérifier que
         getDefaultPokemon();
         amount.innerHTML = ''
     }else{
-        let result = await findPokemon(searchBar.value);
-        amount.innerHTML = 'Résultats : '+result.length;
-        let i = 0;
-        result.forEach((pokemon) => {
-            if(i<10){
-                addToDeck(pokemon['name'])
-                i++
-            }
-        })
+        await addPokemonIfQuery();
     }
 })
 
@@ -178,10 +206,19 @@ function addToDeck(name){
     })
 }
 function getDefaultPokemon(){
-    for(let i = 1; i<31; i+=3){
-        addToDeck(i);
+    if(type.value === ''){
+        for(let i = 1; i<31; i+=3){
+            addToDeck(i);
+        }
+    }else{
+        getData("https://pokeapi.co/api/v2/type/"+type.value).then(data =>{
+            for(let i = 0; i<10; i++){
+                addToDeck(data['pokemon'][i]['pokemon']["name"]);
+            }
+        })
     }
 }
+
 function stockReset(){
     pokemonStock.innerHTML = '';
 }
