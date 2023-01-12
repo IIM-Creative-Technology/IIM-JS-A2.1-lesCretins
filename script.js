@@ -143,6 +143,9 @@ function allowDrop(e){
 function dragPokemon(e){
     e.dataTransfer.setData('pokemon', e.target.id);
 }
+
+let aaaAAAH = document.querySelector('#aaaAAAH');
+aaaAAAH.volume = 0.2;
 function dropPokemon(e){
     if((e.target.classList.contains('cell') && e.target.childElementCount === 0)
         || e.target.id === 'trash'
@@ -150,6 +153,12 @@ function dropPokemon(e){
         let pokemonId = e.dataTransfer.getData('pokemon');
         if(e.target.id === 'trash'){
             document.querySelector('#'+pokemonId).remove();
+            if(!aaaAAAH.paused){
+                aaaAAAH.paused = true;
+                aaaAAAH.currentTime=0;
+            }
+            aaaAAAH.play();
+
         }else{
             e.target.appendChild(document.querySelector('#'+pokemonId));
         }
