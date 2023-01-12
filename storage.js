@@ -3,8 +3,17 @@ if(localStorage.deck === undefined){
 }
 
 //restore the stocked deck inside the dom
+const urlParams = new URLSearchParams(window.location.search);
+let code = urlParams.get('code');
 function restoreDeck(){
     let stored_deck = JSON.parse(localStorage.deck);
+    if(code !== null){
+        code.split(':').forEach((v,i) => {
+            stored_deck[i] = parseInt(v, 16);
+        })
+        localStorage.deck = JSON.stringify(stored_deck);
+        window.history.pushState('Pokédex Benchmark', '', '/');
+    }
     allCell.forEach((cell, index) => {
         if(stored_deck[index] !== 0){
             cell.innerHTML = '';
@@ -33,26 +42,15 @@ allCell.forEach((cell, index) => {
     })
 })
 
-let saveText = document.querySelector('input#save-text');
 let saveButton = document.querySelector('button#save');
-saveButton.style.color = 'gray';
-saveText.addEventListener('keyup', function (){
-    if(this.value !== ''){
-        saveButton.style.color = 'black';
-    }else{
-        saveButton.style.color = 'gray';
-    }
-})
-saveButton.addEventListener('click', async () => {
-    if(saveText.value !== ''){
-        let response = await fetch("/decks.json");
-        let data = await response.json();
-        if(Object.keys(data).includes(saveText.value)){
-            //if already in base
-            alert('This deck already exists. Find another name.');
-            saveText.value = '';
-        }else{
 
-        }
-    }
+saveButton.addEventListener('click', ()=>{
+    let deck = JSON.parse(localStorage.deck).slice(0,6);
+    deck.forEach((value, index) => {
+        deck[index] = value.toString(16);
+    })
+    alert(
+        "Your deck can be shared with code : "
+        +deck.toString().toUpperCase().replaceAll(',',':')
+    )
 })
