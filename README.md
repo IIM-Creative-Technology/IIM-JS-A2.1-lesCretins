@@ -14,7 +14,7 @@
 - Visualisation shiny
 ### Événements
 - Un bouton permet d’ajouter d’autre pokemon
-- Génerer 4 attaques aléatoires pour un pokemon
+- Générer 4 attaques aléatoires pour un pokemon 
 - Au moins 7 évènements :
   - https://developer.mozilla.org/en-US/docs/Web/API/Event
   - 4 obligatoires :
@@ -50,5 +50,5 @@
 ## Non fonctionnel
 - Amélioration du code
 - Résolution d’un bug
-- àContribution à la documentation
+- Contribution à la documentation
 - Amélioration des performances
