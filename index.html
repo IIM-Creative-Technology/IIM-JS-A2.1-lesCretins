@@ -12,18 +12,6 @@
 </head>
 <body>
 <main>
-
-    <div class="search">
-        <label for="search">Search a Pokémon</label>
-        <input type="text" id="search">
-        <p class="amount"></p>
-    </div>
-    <div class="poke-stock">
-
-        
-    </div>
-
-
     <div class="column-container">
         <div class="column">
             <label for="slots">Select your team</label>
@@ -85,7 +73,26 @@
             </div>
         </div>
     </div>
+
+
+
+    <div id="popup" style="display:none;">
+        <div class="popup-content">
+            <p>Hello, this is a pop-up window!</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+
+
+
+
 </main>
+
+
+
+
+
 <script src="script.js"></script>
 <script src="storage.js"></script>
 </body>
