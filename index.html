@@ -12,6 +12,7 @@
 </head>
 <body>
 <main>
+<<<<<<< HEAD
     <div class="search">
         <label for="search">Search a Pokémon</label>
         <input type="text" id="search">
@@ -66,8 +67,50 @@
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
+=======
+    <div class="column-container">
+        <div class="column">
+            <label for="slots">Select your team</label>
+            <select name="slot" id="slots">
+                <option value="1">Slot 1</option>
+                <option value="2">Slot 2</option>
+                <option value="3">Slot 3</option>
+                <option value="4">Slot 4</option>
+                <option value="5">Slot 5</option>
+                <option value="6">Slot 6</option>
+            </select>
+            <div class="hud">
+                <div class="trash">
+                    <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
+                </div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="loading">
+                    <input type="text" placeholder="Save name..." id="save-text">
+                    <button id="save">Save Decks</button>
+                    <p class="message"></p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="search">
+                <label for="search">Search a Pokémon</label>
+                <input type="text" id="search">
+                <p class="amount"></p>
+            </div>
+            <div class="poke-stock">
+                <!--Pokémons will be displayed here-->
+            </div>
+        </div>
+>>>>>>> 23a9126a44051f6d3f29875e86751bd00a1cc564
     </div>
 </main>
+
 <script src="script.js"></script>
+<script src="storage.js"></script>
 </body>
 </html>
