@@ -18,6 +18,15 @@ h1 {
   text-align: center;
 }
 
+.column-container {
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+}
+.column-container .column {
+  width: 500px;
+}
+
 main .poke-card {
   border-width: 5px;
   border-style: solid;
@@ -35,17 +44,14 @@ main .poke-card p {
   text-align: center;
   width: 150px;
 }
-
-.poke-stock {
+main .poke-stock {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  background-color: #815757;
   padding: 40px;
 }
-
-.hud {
+main .hud {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,32 +59,30 @@ main .poke-card p {
   margin: 25px auto;
   gap: 30px;
 }
-
-.trash {
+main .trash {
   height: 100px;
   width: 100px;
 }
-.trash img {
+main .trash img {
   height: 100%;
   width: 100%;
 }
-
-.deck {
+main .deck {
   display: none;
   gap: 10px;
   flex-wrap: wrap;
   height: 100px;
   width: fit-content;
 }
-.deck.active {
+main .deck.active {
   display: flex;
 }
-.deck .cell {
-  kground-color: white;
+main .deck .cell {
+  background-color: white;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.23);
   width: 100px;
 }
-.deck .cell .poke-card {
+main .deck .cell .poke-card {
   border-radius: 0;
   border-width: 0 0 10px 0;
   background: transparent;
@@ -86,21 +90,21 @@ main .poke-card p {
   height: 100px;
   width: 100%;
 }
-.deck .cell .poke-card p {
+main .deck .cell .poke-card p {
   display: none;
 }
-.deck .cell .poke-card img {
+main .deck .cell .poke-card img {
   width: 100%;
   height: 100%;
 }
-
-.search {
+main .search {
   display: flex;
   padding: 30px;
   justify-content: center;
   gap: 10px;
 }
 main .benchmark table.stat {
+  margin: 10px auto;
   border: 1px solid black;
 }
 main .benchmark table.stat th {

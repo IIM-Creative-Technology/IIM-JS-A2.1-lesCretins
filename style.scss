@@ -18,6 +18,16 @@ h1{
   text-align: center;
 }
 
+.column-container{
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  .column{
+    width: 500px;
+
+  }
+}
+
 main{
   .poke-card{
     border-width: 5px;
@@ -27,12 +37,6 @@ main{
     border-radius: 15px;
     height: 175px;
     cursor: grab;
-
-
-
-
-
-
     .img-container{
       display: flex;
       justify-content: center;
@@ -41,22 +45,14 @@ main{
       text-align: center;
       width: 150px;
     }
-
-
-  }
-
-
   }
   .poke-stock{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    background-color: #815757;
     padding: 40px;
-
   }
-
   .hud{
     //contains deck & trash
     display: flex;
@@ -66,7 +62,6 @@ main{
     margin: 25px auto;
     gap: 30px;
   }
-
   .trash{
     height: 100px;
     width: 100px;
@@ -75,19 +70,17 @@ main{
       width: 100%;
     }
   }
-
   .deck{
-    &.active{
+    &.active {
       display: flex;
     }
-
     display: none;
     gap: 10px;
     flex-wrap: wrap;
     height: 100px;
     width: fit-content;
     .cell{
-kground-color: white;
+      background-color: white;
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.23);
       width: 100px;
       .poke-card{
@@ -118,6 +111,7 @@ kground-color: white;
 
   .benchmark{
     table.stat{
+      margin: 10px auto;
       border: 1px solid black;
       th{
         &[scope='col']{

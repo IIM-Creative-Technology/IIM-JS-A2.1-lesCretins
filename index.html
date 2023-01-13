@@ -12,35 +12,34 @@
     <title>Pokédex</title>
 </head>
 <body>
-<main><h1>Pokédex Benchmark</h1>
-    <div class="column-container">
-        <div class="column">
-            <label for="slots">Select your team</label>
-            <select name="slot" id="slots">
-                <option value="1">Slot 1</option>
-                <option value="2">Slot 2</option>
-                <option value="3">Slot 3</option>
-                <option value="4">Slot 4</option>
-                <option value="5">Slot 5</option>
-                <option value="6">Slot 6</option>
-            </select>
-            <div class="hud">
-                <div class="trash">
-                    <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
-                    <audio src="media/aaaAAAH.mp3" style="display: none" id="aaaAAAH"></audio>
-                </div>
-                <div class="deck"></div>
-                <div class="deck"></div>
-                <div class="deck"></div>
-                <div class="deck"></div>
-                <div class="deck"></div>
-                <div class="deck"></div>
-                <div class="save">
-                    <button id="save">Save Current Deck</button>
-                </div>
-            </div>
+<main>
+    <h1>Pokédex Benchmark</h1>
+    <label for="slots">Select your team</label>
+    <select name="slot" id="slots">
+        <option value="1">Slot 1</option>
+        <option value="2">Slot 2</option>
+        <option value="3">Slot 3</option>
+        <option value="4">Slot 4</option>
+        <option value="5">Slot 5</option>
+        <option value="6">Slot 6</option>
+    </select>
+    <div class="hud">
+        <div class="trash">
+            <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
+            <audio src="media/aaaAAAH.mp3" style="display: none" id="aaaAAAH"></audio>
         </div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="save">
+            <button id="save">Save Current Deck</button>
+        </div>
+    </div>
 
+    <div class="column-container">
         <div class="benchmark">
             <p class="teamTypes">Type(s) : <span class="container"></span></p>
             <table class="stat">
@@ -71,7 +70,6 @@
                 <caption>Statistiques Moyennes</caption>
             </table>
         </div>
-
         <div class="column">
             <div class="search">
                 <label for="search">Search a Pokémon</label>
