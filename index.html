@@ -38,37 +38,39 @@
             <button id="save">Save Current Deck</button>
         </div>
     </div>
-
     <div class="column-container">
-        <div class="benchmark">
-            <p class="teamTypes">Type(s) : <span class="container"></span></p>
-            <table class="stat">
-                <tr>
-                    <th scope="col">Stat</th>
-                    <th scope="col">Valeur</th>
-                </tr>
-                <tr>
-                    <th scope="row">HP</th>
-                    <td class="stat"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Attack</th>
-                    <td class="stat"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Defense</th>
-                    <td class="stat"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Special Attack</th>
-                    <td class="stat"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Speed</th>
-                    <td class="stat"></td>
-                </tr>
-                <caption>Statistiques Moyennes</caption>
-            </table>
+        <div class="column">
+            <button id="show">Afficher le benchmark</button>
+            <div class="benchmark" style="display: none">
+                <p class="teamTypes">Type(s) : <span class="container"></span></p>
+                <table class="stat">
+                    <tr>
+                        <th scope="col">Stat</th>
+                        <th scope="col">Valeur</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">HP</th>
+                        <td class="stat"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Attack</th>
+                        <td class="stat"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Defense</th>
+                        <td class="stat"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Special Attack</th>
+                        <td class="stat"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Speed</th>
+                        <td class="stat"></td>
+                    </tr>
+                    <caption>Statistiques Moyennes</caption>
+                </table>
+            </div>
         </div>
         <div class="column">
             <div class="search">
@@ -102,26 +104,13 @@
             </div>
         </div>
     </div>
-
-
-
     <div id="popup" style="display:none;">
         <div class="popup-content">
             <p>Hello, this is a pop-up window!</p>
             <button onclick="closePopup()">Close</button>
         </div>
     </div>
-
-
-
-
-
 </main>
-
-
-
-
-
 <script src="script.js"></script>
 <script src="storage.js"></script>
 <script src="benchmark.js"></script>
