@@ -212,64 +212,128 @@ function generateCard(pokemon){
 
 
     imginfo.addEventListener('click', () => {
-        alert(pokemon['name'] + " est un pokémon de type " + pokemon['types'][0]['type']['name']);
+        let modal
+        if(document.querySelector('#modal') === null) {
+            modal = document.createElement('div');
+            modal.id = 'modal';
+            modal.classList.add('modal');
+            modal.style.position = "absolute";
+            modal.style.top = "0";
+            modal.style.left = "0";
+            modal.style.width = "100%";
+            modal.style.height = "100%";
+            modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+            modal.style.display = "flex";
+            modal.style.justifyContent = "center";
+            modal.style.alignItems = "center";
+            modal.style.zIndex = "100";
+            document.body.appendChild(modal);
+
+            let modalContent = document.createElement('div');
+            modalContent.classList.add('modal-content');
+            modalContent.style.width = "50%";
+            modalContent.style.height = "60%";
+            modalContent.style.backgroundColor = "black";
+            modalContent.style.borderRadius = "10px";
+            modalContent.style.display = "flex";
+            modalContent.style.flexDirection = "column";
+            modalContent.style.justifyContent = "center";
+            modalContent.style.alignItems = "center";
+            modal.appendChild(modalContent);
+
+            let modalTitle = document.createElement('h1');
+            modalTitle.innerHTML = pokemon['name'];
+            modalTitle.style.color = "white";
+            modalContent.appendChild(modalTitle);
+
+            let modalImg = document.createElement('img');
+            modalImg.src = pokemon['sprites']['front_default'];
+            modalImg.style.width = "20rem";
+            modalContent.appendChild(modalImg);
+
+            //bouton pour passer l'img en shiny
+            let shiny = document.createElement('img');
+            shiny.src = "media/shiny.png";
+            shiny.classList.add('shiny');
+            shiny.style.width = "40px";
+            shiny.style.height = "40px";
+            shiny.style.top = "0";
+            shiny.style.right = "0";
+            shiny.style.zIndex = "100";
+            modalContent.appendChild(shiny);
+
+            shiny.addEventListener('click', () => {
+                if(modalImg.src === pokemon['sprites']['front_default']){
+                    modalImg.src = pokemon['sprites']['front_shiny'];
+                    shiny.style.filter = "invert(1)";
+                }else{
+                    modalImg.src = pokemon['sprites']['front_default'];
+                    shiny.style.filter = "invert(0)";
+                }
+
+            })
 
 
+
+            let modalClose = document.createElement('button');
+            modalClose.innerHTML = "Close";
+            modalClose.style.width = "100px";
+            modalClose.style.height = "50px";
+            modalClose.style.backgroundColor = "red";
+            modalClose.style.borderRadius = "10px";
+            modalClose.style.color = "white";
+            modalClose.style.fontSize = "20px";
+            modalClose.style.cursor = "pointer";
+            modalClose.addEventListener('click', () => {
+                    modal.remove();
+                })
+            modalContent.appendChild(modalClose);
+
+
+            //bonton faire evoluer
+
+            let modalEvolve = document.createElement('button');
+            modalEvolve.innerHTML = "Evolve";
+            modalEvolve.style.width = "100px";
+            modalEvolve.style.height = "50px";
+            modalEvolve.style.backgroundColor = "green";
+            modalEvolve.style.borderRadius = "10px";
+            modalEvolve.style.color = "white";
+            modalEvolve.style.fontSize = "30px";
+            modalEvolve.style.cursor = "pointer";
+
+
+
+            modalEvolve.addEventListener('click', () => {
+                if(pokemon['species']['url'] !== pokemon['forms'][0]['url']){
+                    getData(pokemon['species']['url']).then(data => {
+                        getData(data['evolution_chain']['url']).then(data => {
+                            let evolution = data['chain'];
+                            while(evolution['evolves_to'].length > 0){
+                                if(evolution['species']['url'] === pokemon['forms'][0]['url']){
+                                    getData(evolution['evolves_to'][0]['species']['url']).then(data => {
+                                        modalImg.src = data['sprites']['front_default'];
+                                        modalTitle.innerHTML = data['name'];
+                                        pokemon = data;
+
+                                    })
+                                    break;
+                                }else{
+                                    evolution = evolution['evolves_to'][0];
+
+                                }
+                            }
+                        })
+                    })
+                }
+
+            })
+
+            modalContent.appendChild(modalEvolve);
+
+
+        }
     })
-
-
-    let shiny = document.createElement('img');
-    shiny.src = "media/shiny.png";
-    shiny.classList.add('shiny');
-
-    shiny.style.width = "20px";
-    shiny.style.height = "20px";
-    shiny.style.position = "absolute";
-
-    shiny.addEventListener('click', () => {
-        img.src = pokemon['sprites']['front_shiny'];
-
-    })
-
-    shiny.addEventListener('dblclick', () => {
-        img.src = pokemon['sprites']['front_default'];
-    })
-
-
-    let zoom = document.createElement('img');
-    zoom.src = "media/loop.png";
-    zoom.classList.add('zoom');
-
-
-    zoom.style.width = "20px";
-    zoom.style.height = "20px";
-    zoom.style.right = "0px";
-
-
-
-    zoom.addEventListener('click', () => {
-        let img = document.createElement('img');
-        img.src = pokemon['sprites']['front_default'];
-        img.style.width = "500px";
-        img.style.height = "500px";
-        img.style.position = "absolute";
-        img.style.top = "0";
-        img.style.left = "0";
-        img.style.zIndex = "1000";
-        img.style.backgroundColor = "beige";
-        img.style.opacity = "0.9";
-        img.style.borderRadius = "10px";
-        img.style.cursor = "pointer";
-        img.addEventListener('click', () => {
-            img.remove();
-        })
-        document.body.appendChild(img);
-    } //
-
-    )
-
-
-
 
 
     imgContainer.classList.add('img-container');
@@ -281,9 +345,6 @@ function generateCard(pokemon){
     card.appendChild(p);
     card.appendChild(imginfo);
     imgContainer.appendChild(img);
-    imgContainer.appendChild(shiny);
-    imgContainer.appendChild(zoom);
-
 
 
 
@@ -350,4 +411,9 @@ window.onload = async () => {
 // info pokemon
 
 const popinfo = document.querySelector('.iconeinfo');
+
+
+
+
+
 
