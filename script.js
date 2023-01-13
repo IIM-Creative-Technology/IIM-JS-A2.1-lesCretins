@@ -140,12 +140,18 @@ function allowDrop(e){
     }else{
     }
 }
+
 function dragPokemon(e){
     e.dataTransfer.setData('pokemon', e.target.id);
+    if(e.target.parentNode.classList.contains('poke-stock')){
+        e.dataTransfer.setData('toCopy', 'true');
+        console.log('à copier')
+    }
 }
 
 let aaaAAAH = document.querySelector('#aaaAAAH');
 aaaAAAH.volume = 0.2;
+
 function dropPokemon(e){
     if((e.target.classList.contains('cell') && e.target.childElementCount === 0)
         || e.target.id === 'trash'
@@ -160,7 +166,18 @@ function dropPokemon(e){
             aaaAAAH.play();
 
         }else{
-            e.target.appendChild(document.querySelector('#'+pokemonId));
+            if(e.dataTransfer.getData('toCopy') === 'true' && !e.target.classList.contains('poke-stock')){
+                let pokeID = pokemonId.split('_')[2];
+                getPokemonData(pokeID).then(data => {
+                    e.target.appendChild(generateCard(data));
+                })
+            }else{
+                if(e.target.classList.contains('poke-stock') && e.dataTransfer.getData('toCopy') !== 'true'){
+                    document.querySelector('#'+pokemonId).remove();
+                }else{
+                    e.target.appendChild(document.querySelector('#'+pokemonId));
+                }
+            }
         }
     }
 }
