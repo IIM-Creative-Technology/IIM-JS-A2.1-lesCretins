@@ -184,6 +184,25 @@ function dropPokemon(e){
     }
 }
 
+let vanishSound = document.querySelector('#vanish');
+vanishSound.volume = 0.5;
+trash.addEventListener('dblclick', () => {
+    let storage = JSON.parse(localStorage.deck).slice(0,6);
+    if(!storage.every(cell => cell === 0)){
+        if(!vanishSound.paused){
+            vanishSound.paused = true;
+            vanishSound.currentTime=0;
+        }
+        vanishSound.play();
+        let offset = 0; //TODO pimper la fonction pour qu'elle puisse supprimer n'importe quelle team
+        for(let i=offset; i<offset+6; i++){
+            setTimeout(()=>{
+                allCell[i].innerHTML = '';
+            }, 100*(i%6))
+        }
+    }
+})
+
 //deck and visual
 async function getPokemonData(name){
     let pokemon = await getData("https://pokeapi.co/api/v2/pokemon/"+name);
