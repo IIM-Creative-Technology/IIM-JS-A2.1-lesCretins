@@ -32,6 +32,7 @@ allCell.forEach((cell, index) => {
         let stored_deck = JSON.parse(localStorage.deck);
         stored_deck[index] = parseInt(this.querySelector('div').id.split('_')[2]);
         localStorage.deck = JSON.stringify(stored_deck);
+        refreshStats();
     })
 
 
@@ -39,6 +40,7 @@ allCell.forEach((cell, index) => {
         let stored_deck = JSON.parse(localStorage.deck);
         stored_deck[index] = 0;
         localStorage.deck = JSON.stringify(stored_deck);
+        refreshStats();
     })
 })
 

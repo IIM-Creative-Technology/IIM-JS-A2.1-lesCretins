@@ -7,11 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="media/pokeball.png" type="image/x-icon">
     <link href="https://fonts.cdnfonts.com/css/gill-sans" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Pokédex</title>
 </head>
 <body>
-<main>
+<main><h1>Pokédex Benchmark</h1>
     <div class="column-container">
         <div class="column">
             <label for="slots">Select your team</label>
@@ -39,35 +40,65 @@
                 </div>
             </div>
         </div>
+
+        <div class="benchmark">
+            <p class="teamTypes">Type(s) : <span class="container"></span></p>
+            <table class="stat">
+                <tr>
+                    <th scope="col">Stat</th>
+                    <th scope="col">Valeur</th>
+                </tr>
+                <tr>
+                    <th scope="row">HP</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Attack</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Defense</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Special Attack</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Speed</th>
+                    <td class="stat"></td>
+                </tr>
+                <caption>Statistiques Moyennes</caption>
+            </table>
+        </div>
+
         <div class="column">
             <div class="search">
                 <label for="search">Search a Pokémon</label>
                 <input type="text" id="search">
                 <p class="amount"></p>
             </div>
-            <label for="pet-select">Choisissez un type de pokémon en particulier:</label>
-
-
-    <select name="type" id="type">
-        <option value="">All pokemons</option>
-        <option value="normal">normal</option>
-        <option value="water">water</option>
-        <option value="electric">electric</option>
-        <option value="grass">grass</option>
-        <option value="ice">ice</option>
-        <option value="fighting">fighting</option>
-        <option value="poison">poison</option>
-        <option value="ground">ground</option>
-        <option value="flying">flying</option>
-        <option value="psychic">psychic</option>
-        <option value="bug">bug</option>
-        <option value="rock">rock</option>
-        <option value="ghost">ghost</option>
-        <option value="dragon">dragon</option>
-        <option value="dark">dark</option>
-        <option value="steel">steel</option>
-        <option value="fairy">fairy</option>
-    </select>
+            <label for="type">Choisissez un type de pokémon en particulier:</label>
+            <select name="type" id="type">
+                <option value="">All pokemons</option>
+                <option value="normal">normal</option>
+                <option value="water">water</option>
+                <option value="electric">electric</option>
+                <option value="grass">grass</option>
+                <option value="ice">ice</option>
+                <option value="fighting">fighting</option>
+                <option value="poison">poison</option>
+                <option value="ground">ground</option>
+                <option value="flying">flying</option>
+                <option value="psychic">psychic</option>
+                <option value="bug">bug</option>
+                <option value="rock">rock</option>
+                <option value="ghost">ghost</option>
+                <option value="dragon">dragon</option>
+                <option value="dark">dark</option>
+                <option value="steel">steel</option>
+                <option value="fairy">fairy</option>
+            </select>
             <div class="poke-stock">
                 <!--Pokémons will be displayed here-->
             </div>
@@ -95,5 +126,6 @@
 
 <script src="script.js"></script>
 <script src="storage.js"></script>
+<script src="benchmark.js"></script>
 </body>
 </html>
