@@ -122,16 +122,16 @@ function generateCard(pokemon){
     imginfo.src = "media/information.png";
     imginfo.classList.add('info');
 
-
     imginfo.style.width = "20px";
     imginfo.style.height = "20px";
-    imginfo.style.marginRight = "10px";
+
 
 
     imginfo.addEventListener('click', () => {
         alert(pokemon['name'] + " est un pokémon de type " + pokemon['types'][0]['type']['name']);
-    }
-    )
+
+    
+    })
 
 
 
@@ -144,6 +144,8 @@ function generateCard(pokemon){
     card.appendChild(p);
     card.appendChild(imginfo);
     imgContainer.appendChild(img);
+
+
 
 
 
