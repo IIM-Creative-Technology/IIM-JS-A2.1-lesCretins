@@ -1,3 +1,5 @@
+
+
 //function to get raw JSON data from URL
 async function getData(url){
     let request = await fetch(url);
@@ -196,6 +198,80 @@ function generateCard(pokemon){
     let img = document.createElement('img');
     let p = document.createElement('p');
     let imgContainer = document.createElement('div');
+
+
+
+    let imginfo = document.createElement('img');
+    imginfo.src = "media/information.png";
+    imginfo.classList.add('info');
+
+    imginfo.style.width = "20px";
+    imginfo.style.height = "20px";
+    imginfo.style.position = "absolute";
+
+
+
+    imginfo.addEventListener('click', () => {
+        alert(pokemon['name'] + " est un pokémon de type " + pokemon['types'][0]['type']['name']);
+
+
+    })
+
+
+    let shiny = document.createElement('img');
+    shiny.src = "media/shiny.png";
+    shiny.classList.add('shiny');
+
+    shiny.style.width = "20px";
+    shiny.style.height = "20px";
+    shiny.style.position = "absolute";
+
+    shiny.addEventListener('click', () => {
+        img.src = pokemon['sprites']['front_shiny'];
+
+    })
+
+    shiny.addEventListener('dblclick', () => {
+        img.src = pokemon['sprites']['front_default'];
+    })
+
+
+    let zoom = document.createElement('img');
+    zoom.src = "media/loop.png";
+    zoom.classList.add('zoom');
+
+
+    zoom.style.width = "20px";
+    zoom.style.height = "20px";
+    zoom.style.right = "0px";
+
+
+
+    zoom.addEventListener('click', () => {
+        let img = document.createElement('img');
+        img.src = pokemon['sprites']['front_default'];
+        img.style.width = "500px";
+        img.style.height = "500px";
+        img.style.position = "absolute";
+        img.style.top = "0";
+        img.style.left = "0";
+        img.style.zIndex = "1000";
+        img.style.backgroundColor = "beige";
+        img.style.opacity = "0.9";
+        img.style.borderRadius = "10px";
+        img.style.cursor = "pointer";
+        img.addEventListener('click', () => {
+            img.remove();
+        })
+        document.body.appendChild(img);
+    } //
+
+    )
+
+
+
+
+
     imgContainer.classList.add('img-container');
     img.src = pokemon['sprites']['front_default'];
     img.draggable = false;
@@ -203,7 +279,20 @@ function generateCard(pokemon){
     let card = document.createElement('div');
     card.classList.add('poke-card');
     card.appendChild(p);
+    card.appendChild(imginfo);
     imgContainer.appendChild(img);
+    imgContainer.appendChild(shiny);
+    imgContainer.appendChild(zoom);
+
+
+
+
+
+
+
+
+
+
     card.appendChild(imgContainer);
     card.style.borderColor = typeColor[pokemon['types'][0]['type']['name']]
     card.id = 'card_' + amountCard + '_'+pokemon['id'];
@@ -212,6 +301,7 @@ function generateCard(pokemon){
     card.ondragstart = dragPokemon;
     return card;
 }
+
 function addToDeck(name){
     getPokemonData(name).then(pokemon => {
         pokemonStock.appendChild(generateCard(pokemon));
@@ -251,4 +341,13 @@ window.onload = async () => {
     getDefaultPokemon();
     //storage
     restoreDeck();
+
 }
+
+
+
+
+// info pokemon
+
+const popinfo = document.querySelector('.iconeinfo');
+
