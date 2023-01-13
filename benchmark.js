@@ -1,56 +1,46 @@
 let pokeTeam;
-let avgStats;
 let allTeamTypes;
 
 async function calculateStats(){
     pokeTeam = JSON.parse(localStorage.deck).slice(0,6);
-    avgStats = {'HP': 0, 'Attack': 0, 'Defense': 0, 'Special Attack': 0, 'Speed': 0};
+    let avgStats = {'HP': 0, 'Attack': 0, 'Defense': 0, 'Special Attack': 0, 'Speed': 0};
     await Promise.all(pokeTeam.map(async (id) => {
         if(id!==0){
             let data = await getPokemonData(id);
-            //ajout aux moyennes de stat
-            Object.keys(avgStats).forEach((v,i) => {
-                avgStats[v] += data['stats'][i]['base_stat'];
-            })
             //remplissage du tableau des types
             data['types'].forEach(pokeType => {
                 if(!allTeamTypes.includes(pokeType['type']['name'])){
                     allTeamTypes.push(pokeType['type']['name']);
                 }
             })
+            //ajout aux moyennes de stats
+            Object.keys(avgStats).forEach((v,i) => {
+                avgStats[v] += data['stats'][i]['base_stat'];
+            })
         }
     }));
+    return avgStats;
 }
 
 let DOMStats = document.querySelectorAll('table.stat td.stat');
 let DOMTypeContainer = document.querySelector('p.teamTypes > span');
-let showButton = document.querySelector('button#show');
-let isShowed = false;
-showButton.addEventListener('click', function() {
-    isShowed = true;
-    document.querySelector('.benchmark').style.display = 'block';
-    refreshStats();
-    this.remove();
-})
 
 function refreshStats(){
-    if(isShowed){
-        allTeamTypes = [];
-        calculateStats().then(()=>{
-            DOMTypeContainer.innerHTML = '';
-            //écriture des stats moyennes
-            Object.keys(avgStats).forEach((statName, i) => {
-                DOMStats[i].innerHTML = (Math.floor(avgStats[statName]/6)).toString();
-            })
-            //affichage des types de l'équipe
-            allTeamTypes.forEach(type => {
-                let span = document.createElement('span');
-                span.innerHTML = type;
-                span.style.backgroundColor = typeColor[type];
-                DOMTypeContainer.appendChild(span);
-            })
+    allTeamTypes = [];
+    calculateStats().then((avgStats)=>{
+        DOMTypeContainer.innerHTML = '';
+        //écriture des stats moyennes
+        Object.keys(avgStats).forEach((statName, i) => {
+            DOMStats[i].innerHTML = (Math.floor(avgStats[statName]/6)).toString();
         })
-    }
+        //affichage des types de l'équipe
+        allTeamTypes.forEach(type => {
+            let span = document.createElement('span');
+            span.innerHTML = type;
+            span.style.backgroundColor = typeColor[type];
+            DOMTypeContainer.appendChild(span);
+        })
+    })
 }
 
 
