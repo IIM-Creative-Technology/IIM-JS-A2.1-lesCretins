@@ -22,11 +22,15 @@ h1 {
   width: fit-content;
   margin: 0 auto;
   display: flex;
+  gap: 50px;
 }
 .column-container .column {
   width: 500px;
 }
 
+main {
+  position: relative;
+}
 main .poke-card {
   border-width: 5px;
   border-style: solid;
@@ -51,12 +55,20 @@ main .poke-stock {
   gap: 10px;
   padding: 40px;
 }
+main .sticky {
+  top: 0;
+  z-index: 10;
+  background-color: white;
+  position: sticky;
+  padding: 30px 0;
+  margin-bottom: 25px;
+}
 main .hud {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: fit-content;
-  margin: 25px auto;
+  margin: 0 auto;
   gap: 30px;
 }
 main .trash {
@@ -83,12 +95,18 @@ main .deck .cell {
   width: 100px;
 }
 main .deck .cell .poke-card {
+  position: relative;
   border-radius: 0;
   border-width: 0 0 10px 0;
   background: transparent;
   padding: 0;
   height: 100px;
   width: 100%;
+}
+main .deck .cell .poke-card img.info {
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 main .deck .cell .poke-card p {
   display: none;
@@ -103,9 +121,56 @@ main .search {
   justify-content: center;
   gap: 10px;
 }
+main .benchmark {
+  position: relative;
+  border: 5px solid yellow;
+  border-radius: 30px;
+  overflow: clip;
+  padding-bottom: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.37);
+}
+main .benchmark::before {
+  content: "Team Rank";
+  color: black;
+  display: block;
+  text-align: center;
+  padding: 20px;
+  font-size: 2em;
+}
+main .benchmark h2#score {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 4em;
+  text-shadow: 5px 5px 0 black;
+  text-align: center;
+  height: 80px;
+  width: 80px;
+  font-weight: bold;
+}
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+main .benchmark canvas {
+  background-color: white;
+  display: block;
+  margin: 25px auto;
+  border: 5px inset gold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
 main .benchmark table.stat {
-  margin: 10px auto;
+  background-color: white;
   border: 1px solid black;
+  caption-side: bottom;
+  width: 180px;
 }
 main .benchmark table.stat th {
   padding: 10px;
@@ -126,18 +191,30 @@ main .benchmark table.stat caption {
   font-style: italic;
   font-size: 0.8em;
 }
-main .benchmark p.teamTypes > span {
-  display: inline-block;
-  margin: 20px;
+main .benchmark div.teamTypes {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-main .benchmark p.teamTypes > span > span {
+main .benchmark div.teamTypes span {
+  display: block;
+  width: fit-content;
   padding: 5px;
   border-radius: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 20px;
   color: white;
   text-shadow: 0 0 2px black;
   box-shadow: 0 0 1px black;
+}
+main .benchmark div.capacity {
+  width: 180px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+}
+main .benchmark div.capacity ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

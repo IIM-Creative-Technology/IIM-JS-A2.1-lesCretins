@@ -1,20 +1,50 @@
 let pokeTeam;
 let allTeamTypes;
-let score = document.querySelector('span#score');
-console.log(score.innerHTML)
+let score = document.querySelector('h2#score');
 
-function getRank(score) {
-    if (score < 100) {
+let canvas = document.querySelector("canvas");
+let ctx = canvas.getContext("2d");
+
+//GPTChat function to darken color
+function darkenColor(hex, lum) {
+    // Validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+        hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    }
+    lum = lum || 0;
+
+    // Convert to decimal and change luminosity
+    let rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+        c = parseInt(hex.substr(i*2,2), 16);
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        rgb += ("00"+c).substr(c.length);
+    }
+
+    return rgb;
+}
+
+function getRank(scoreCalculation) {
+    score.style.animation = 'none';
+    if (scoreCalculation < 100) {
+        score.style.color = '#4d4038';
         return "F";
-    } else if (score < 200) {
+    } else if (scoreCalculation < 200) {
+        score.style.color = '#384d38';
         return "E";
-    } else if (score < 300) {
+    } else if (scoreCalculation < 300) {
+        score.style.color = '#c01818';
         return "D";
-    } else if (score < 400) {
+    } else if (scoreCalculation < 400) {
+        score.style.color = '#c04a18';
         return "C";
-    } else if (score < 500) {
+    } else if (scoreCalculation < 500) {
+        score.style.color = '#c77717';
         return "B";
     } else {
+        score.style.color = '#ffea00';
+        score.style.animation = 'bounce 1s infinite';
         return "A";
     }
 }
@@ -38,16 +68,20 @@ async function calculateStats(){
         }
     }));
     let scoreCalculation = 0;
-    console.log(score)
     Object.values(avgStats).forEach(value => scoreCalculation += Math.floor(value/6));
     score.innerHTML = getRank(scoreCalculation);
     return avgStats;
 }
 
 let DOMStats = document.querySelectorAll('table.stat td.stat');
-let DOMTypeContainer = document.querySelector('p.teamTypes > span');
+let DOMTypeContainer = document.querySelector('div.teamTypes');
+let DOMBenchmark = document.querySelector('.benchmark');
+let canvasPlacement = [[-1,-2],[0,-2],[1,-2], [-0.5,-1], [0.5,-1], [0,0]];
+
+
 
 function refreshStats(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     allTeamTypes = [];
     calculateStats().then((avgStats)=>{
         DOMTypeContainer.innerHTML = '';
@@ -56,11 +90,32 @@ function refreshStats(){
             DOMStats[i].innerHTML = (Math.floor(avgStats[statName]/6)).toString();
         })
         //affichage des types de l'équipe
+        let bgCard = false;
         allTeamTypes.forEach(type => {
             let span = document.createElement('span');
             span.innerHTML = type;
             span.style.backgroundColor = typeColor[type];
+            if(!bgCard){
+                bgCard = true;
+                DOMBenchmark.style.background = ' url(https://grainy-gradients.vercel.app/noise.svg), radial-gradient(' +
+                    'circle, ' +
+                    darkenColor(typeColor[type], +0.2)+', '+
+                    darkenColor(typeColor[type], -0.2)+')';
+            }
             DOMTypeContainer.appendChild(span);
+
+            [5,4,3,2,1,0].forEach((v,i) => {
+                setTimeout(()=>{
+                    let image = allCell[v].querySelector('img');
+                    if(image !== null){
+                        let imgWidth = 100;
+                        let imgHeight = 100;
+                        let x = (canvas.width - imgWidth)/2 +canvasPlacement[i][0]*80;
+                        let y = (canvas.width - imgHeight)/2+canvasPlacement[i][1]*80 +60;
+                        ctx.drawImage(image, x, y);
+                    }
+                }, 100 + 100*i)
+            })
         })
     })
 }

@@ -292,8 +292,6 @@ function generateCard(pokemon){
 
             })
 
-
-
             let modalClose = document.createElement('button');
             modalClose.innerHTML = "Close";
             modalClose.style.width = "100px";
@@ -320,8 +318,6 @@ function generateCard(pokemon){
             modalEvolve.style.color = "white";
             modalEvolve.style.fontSize = "30px";
             modalEvolve.style.cursor = "pointer";
-
-
 
             modalEvolve.addEventListener('click', () => {
                 if(pokemon['species']['url'] !== pokemon['forms'][0]['url']){
@@ -362,18 +358,9 @@ function generateCard(pokemon){
     let card = document.createElement('div');
     card.classList.add('poke-card');
     card.appendChild(p);
-    card.appendChild(imginfo);
     imgContainer.appendChild(img);
-
-
-
-
-
-
-
-
-
     card.appendChild(imgContainer);
+    card.appendChild(imginfo);
     card.style.borderColor = typeColor[pokemon['types'][0]['type']['name']]
     card.id = 'card_' + amountCard + '_'+pokemon['id'];
     amountCard++;

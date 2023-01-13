@@ -14,63 +14,82 @@
 <body>
 <main>
     <h1>Pokédex Benchmark</h1>
-    <label for="slots">Select your team</label>
-    <select name="slot" id="slots">
-        <option value="1">Slot 1</option>
-        <option value="2">Slot 2</option>
-        <option value="3">Slot 3</option>
-        <option value="4">Slot 4</option>
-        <option value="5">Slot 5</option>
-        <option value="6">Slot 6</option>
-    </select>
-    <div class="hud">
-        <div class="trash">
-            <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
-            <audio src="media/aaaAAAH.mp3" style="display: none" id="aaaAAAH"></audio>
-            <audio src="media/vanish.mp3" style="display: none" id="vanish"></audio>
-        </div>
-        <div class="deck"></div>
-        <div class="deck"></div>
-        <div class="deck"></div>
-        <div class="deck"></div>
-        <div class="deck"></div>
-        <div class="deck"></div>
-        <div class="save">
-            <button id="save">Save Current Deck</button>
+    <div>
+        <label for="slots">Select your team</label>
+        <select name="slot" id="slots">
+            <option value="1">Slot 1</option>
+            <option value="2">Slot 2</option>
+            <option value="3">Slot 3</option>
+            <option value="4">Slot 4</option>
+            <option value="5">Slot 5</option>
+            <option value="6">Slot 6</option>
+        </select>
+    </div>
+    <div class="sticky">
+        <div class="hud">
+            <div class="trash">
+                <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
+                <audio src="media/aaaAAAH.mp3" style="display: none" id="aaaAAAH"></audio>
+                <audio src="media/vanish.mp3" style="display: none" id="vanish"></audio>
+            </div>
+            <div class="deck"></div>
+            <div class="deck"></div>
+            <div class="deck"></div>
+            <div class="deck"></div>
+            <div class="deck"></div>
+            <div class="deck"></div>
+            <div class="save">
+                <button id="save">Save Current Deck</button>
+            </div>
         </div>
     </div>
     <div class="column-container">
         <div class="column">
             <div class="benchmark">
-                <h2>Score: <span id="score"></span></h2>
-                <p class="teamTypes">Type(s) : <span class="container"></span></p>
-                <table class="stat">
-                    <tr>
-                        <th scope="col">Stat</th>
-                        <th scope="col">Valeur</th>
-                    </tr>
-                    <tr>
-                        <th scope="row">HP</th>
-                        <td class="stat"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Attack</th>
-                        <td class="stat"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Defense</th>
-                        <td class="stat"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Special Attack</th>
-                        <td class="stat"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Speed</th>
-                        <td class="stat"></td>
-                    </tr>
-                    <caption>Statistiques Moyennes</caption>
-                </table>
+                <h2 id="score"></h2>
+                <div class="teamTypes"></div>
+                <canvas width="300" height="250"></canvas>
+                <div class="column-container">
+                    <table class="stat">
+                        <tr>
+                            <th scope="col">Stat</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">HP</th>
+                            <td class="stat"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Attack</th>
+                            <td class="stat"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Defense</th>
+                            <td class="stat"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Special Attack</th>
+                            <td class="stat"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Speed</th>
+                            <td class="stat"></td>
+                        </tr>
+                        <caption>Average Team Stats</caption>
+                    </table>
+                    <div class="capacity">
+                        <p>Potential attacks :</p>
+                        <ul>
+                            <li>Blank</li>
+                            <li>Blank</li>
+                        </ul>
+                        <p>Potential capacities :</p>
+                        <ul>
+                            <li>Blank</li>
+                            <li>Blank</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column">
@@ -103,12 +122,6 @@
             <div class="poke-stock">
                 <!--Pokémons will be displayed here-->
             </div>
-        </div>
-    </div>
-    <div id="popup" style="display:none;">
-        <div class="popup-content">
-            <p>Hello, this is a pop-up window!</p>
-            <button onclick="closePopup()">Close</button>
         </div>
     </div>
 </main>
