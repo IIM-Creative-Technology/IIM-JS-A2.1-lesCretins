@@ -12,6 +12,7 @@
 </head>
 <body>
 <main>
+
     <div class="search">
         <label for="search">Search a Pokémon</label>
         <input type="text" id="search">
@@ -23,15 +24,69 @@
     </div>
 
 
-    <div class="deck">
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
+    <div class="column-container">
+        <div class="column">
+            <label for="slots">Select your team</label>
+            <select name="slot" id="slots">
+                <option value="1">Slot 1</option>
+                <option value="2">Slot 2</option>
+                <option value="3">Slot 3</option>
+                <option value="4">Slot 4</option>
+                <option value="5">Slot 5</option>
+                <option value="6">Slot 6</option>
+            </select>
+            <div class="hud">
+                <div class="trash">
+                    <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
+                    <audio src="media/aaaAAAH.mp3" style="display: none" id="aaaAAAH"></audio>
+                </div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="deck"></div>
+                <div class="save">
+                    <button id="save">Save Current Deck</button>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="search">
+                <label for="search">Search a Pokémon</label>
+                <input type="text" id="search">
+                <p class="amount"></p>
+            </div>
+            <label for="pet-select">Choisissez un type de pokémon en particulier:</label>
+
+
+    <select name="type" id="type">
+        <option value="">All pokemons</option>
+        <option value="normal">normal</option>
+        <option value="water">water</option>
+        <option value="electric">electric</option>
+        <option value="grass">grass</option>
+        <option value="ice">ice</option>
+        <option value="fighting">fighting</option>
+        <option value="poison">poison</option>
+        <option value="ground">ground</option>
+        <option value="flying">flying</option>
+        <option value="psychic">psychic</option>
+        <option value="bug">bug</option>
+        <option value="rock">rock</option>
+        <option value="ghost">ghost</option>
+        <option value="dragon">dragon</option>
+        <option value="dark">dark</option>
+        <option value="steel">steel</option>
+        <option value="fairy">fairy</option>
+    </select>
+            <div class="poke-stock">
+                <!--Pokémons will be displayed here-->
+            </div>
+        </div>
     </div>
 </main>
 <script src="script.js"></script>
+<script src="storage.js"></script>
 </body>
 </html>
