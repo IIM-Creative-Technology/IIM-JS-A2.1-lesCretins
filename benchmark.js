@@ -1,5 +1,23 @@
 let pokeTeam;
 let allTeamTypes;
+let score = document.querySelector('span#score');
+console.log(score.innerHTML)
+
+function getRank(score) {
+    if (score < 100) {
+        return "F";
+    } else if (score < 200) {
+        return "E";
+    } else if (score < 300) {
+        return "D";
+    } else if (score < 400) {
+        return "C";
+    } else if (score < 500) {
+        return "B";
+    } else {
+        return "A";
+    }
+}
 
 async function calculateStats(){
     pokeTeam = JSON.parse(localStorage.deck).slice(0,6);
@@ -19,6 +37,10 @@ async function calculateStats(){
             })
         }
     }));
+    let scoreCalculation = 0;
+    console.log(score)
+    Object.values(avgStats).forEach(value => scoreCalculation += Math.floor(value/6));
+    score.innerHTML = getRank(scoreCalculation);
     return avgStats;
 }
 
