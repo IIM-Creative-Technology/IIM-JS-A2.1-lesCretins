@@ -1,4 +1,5 @@
 //function to get raw JSON data from URL
+
 async function getData(url){
     let request = await fetch(url);
     if(request.status !== 404){
