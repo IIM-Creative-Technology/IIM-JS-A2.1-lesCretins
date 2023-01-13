@@ -5,6 +5,29 @@
   font-family: 'Gill Sans', sans-serif;
 }
 
+h1,h2,td, h1{
+  font-family: 'Pokemon Solid', sans-serif;
+  letter-spacing: 3px;
+  span{
+    font-family: inherit;
+  }
+}
+
+h1{
+  padding: 30px;
+  text-align: center;
+}
+
+.column-container{
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  .column{
+    width: 500px;
+
+  }
+}
+
 main{
   .poke-card{
     border-width: 5px;
@@ -28,10 +51,8 @@ main{
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    background-color: #815757;
     padding: 40px;
   }
-
   .hud{
     //contains deck & trash
     display: flex;
@@ -41,7 +62,6 @@ main{
     margin: 25px auto;
     gap: 30px;
   }
-
   .trash{
     height: 100px;
     width: 100px;
@@ -50,12 +70,10 @@ main{
       width: 100%;
     }
   }
-
   .deck{
-    &.active{
+    &.active {
       display: flex;
     }
-
     display: none;
     gap: 10px;
     flex-wrap: wrap;
@@ -80,12 +98,53 @@ main{
           height: 100%;
         }
       }
+
     }
   }
+
   .search{
     display: flex;
     padding: 30px;
     justify-content: center;
     gap: 10px;
+  }
+
+  .benchmark{
+    table.stat{
+      margin: 10px auto;
+      border: 1px solid black;
+      th{
+        &[scope='col']{
+          background-color: black;
+          color: white;
+        }
+        &[scope='row']{
+          background-color: #e5e5e5;
+          text-align: left;
+        }
+        padding: 10px;
+      }
+      td{
+        text-align: center;
+        font-weight: bolder;
+      }
+      caption{
+        font-style: italic;
+        font-size: 0.8em;
+      }
+    }
+    p.teamTypes > span {
+      display: inline-block;
+      margin: 20px;
+      & > span{
+        padding: 5px;
+        border-radius: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+        color: white;
+        text-shadow: 0 0 2px black;
+        box-shadow: 0 0 1px black;
+      }
+    }
   }
 }

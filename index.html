@@ -7,11 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="media/pokeball.png" type="image/x-icon">
     <link href="https://fonts.cdnfonts.com/css/gill-sans" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Pokédex</title>
 </head>
 <body>
 <main>
+<<<<<<< HEAD
     <div class="search">
         <label for="search">Search a Pokémon</label>
         <input type="text" id="search">
@@ -80,13 +82,119 @@
         <option value="steel">steel</option>
         <option value="fairy">fairy</option>
     </select>
+=======
+    <h1>Pokédex Benchmark</h1>
+    <label for="slots">Select your team</label>
+    <select name="slot" id="slots">
+        <option value="1">Slot 1</option>
+        <option value="2">Slot 2</option>
+        <option value="3">Slot 3</option>
+        <option value="4">Slot 4</option>
+        <option value="5">Slot 5</option>
+        <option value="6">Slot 6</option>
+    </select>
+    <div class="hud">
+        <div class="trash">
+            <img src="media/well.png" alt="pokétrash" draggable="false" id="trash">
+            <audio src="media/aaaAAAH.mp3" style="display: none" id="aaaAAAH"></audio>
+        </div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="deck"></div>
+        <div class="save">
+            <button id="save">Save Current Deck</button>
+        </div>
+    </div>
+
+    <div class="column-container">
+        <div class="benchmark">
+            <p class="teamTypes">Type(s) : <span class="container"></span></p>
+            <table class="stat">
+                <tr>
+                    <th scope="col">Stat</th>
+                    <th scope="col">Valeur</th>
+                </tr>
+                <tr>
+                    <th scope="row">HP</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Attack</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Defense</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Special Attack</th>
+                    <td class="stat"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Speed</th>
+                    <td class="stat"></td>
+                </tr>
+                <caption>Statistiques Moyennes</caption>
+            </table>
+        </div>
+        <div class="column">
+            <div class="search">
+                <label for="search">Search a Pokémon</label>
+                <input type="text" id="search">
+                <p class="amount"></p>
+            </div>
+            <label for="type">Choisissez un type de pokémon en particulier:</label>
+            <select name="type" id="type">
+                <option value="">All pokemons</option>
+                <option value="normal">normal</option>
+                <option value="water">water</option>
+                <option value="electric">electric</option>
+                <option value="grass">grass</option>
+                <option value="ice">ice</option>
+                <option value="fighting">fighting</option>
+                <option value="poison">poison</option>
+                <option value="ground">ground</option>
+                <option value="flying">flying</option>
+                <option value="psychic">psychic</option>
+                <option value="bug">bug</option>
+                <option value="rock">rock</option>
+                <option value="ghost">ghost</option>
+                <option value="dragon">dragon</option>
+                <option value="dark">dark</option>
+                <option value="steel">steel</option>
+                <option value="fairy">fairy</option>
+            </select>
+>>>>>>> 6c4ad4f290cc84012a5f34872a732faae96f1586
             <div class="poke-stock">
                 <!--Pokémons will be displayed here-->
             </div>
         </div>
     </div>
+
+
+
+    <div id="popup" style="display:none;">
+        <div class="popup-content">
+            <p>Hello, this is a pop-up window!</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+
+
+
+
 </main>
+
+
+
+
+
 <script src="script.js"></script>
 <script src="storage.js"></script>
+<script src="benchmark.js"></script>
 </body>
 </html>
