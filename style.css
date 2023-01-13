@@ -5,6 +5,19 @@
   font-family: "Gill Sans", sans-serif;
 }
 
+h1, h2, td, h1 {
+  font-family: "Pokemon Solid", sans-serif;
+  letter-spacing: 3px;
+}
+h1 span, h2 span, td span, h1 span {
+  font-family: inherit;
+}
+
+h1 {
+  padding: 30px;
+  text-align: center;
+}
+
 main .poke-card {
   border-width: 5px;
   border-style: solid;
@@ -81,6 +94,41 @@ main .search {
   padding: 30px;
   justify-content: center;
   gap: 10px;
+}
+main .benchmark table.stat {
+  border: 1px solid black;
+}
+main .benchmark table.stat th {
+  padding: 10px;
+}
+main .benchmark table.stat th[scope=col] {
+  background-color: black;
+  color: white;
+}
+main .benchmark table.stat th[scope=row] {
+  background-color: #e5e5e5;
+  text-align: left;
+}
+main .benchmark table.stat td {
+  text-align: center;
+  font-weight: bolder;
+}
+main .benchmark table.stat caption {
+  font-style: italic;
+  font-size: 0.8em;
+}
+main .benchmark p.teamTypes > span {
+  display: inline-block;
+  margin: 20px;
+}
+main .benchmark p.teamTypes > span > span {
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
+  text-shadow: 0 0 2px black;
+  box-shadow: 0 0 1px black;
 }
 
 /*# sourceMappingURL=style.css.map */
