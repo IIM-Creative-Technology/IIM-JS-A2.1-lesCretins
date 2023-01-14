@@ -108,6 +108,7 @@ function refreshStats(){
         order.forEach((v,i) => {
             let image = allCell[v].querySelector('img');
             if(image !== null){
+                image.crossOrigin = 'Anonymous';
                 setTimeout(()=>{
                     let imgWidth = 100;
                     let imgHeight = 100;
