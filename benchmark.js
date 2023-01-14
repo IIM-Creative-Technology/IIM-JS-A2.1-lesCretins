@@ -103,24 +103,44 @@ function refreshStats(){
                     darkenColor(typeColor[type], -0.2)+')';
             }
             DOMTypeContainer.appendChild(span);
-
-            [5,4,3,2,1,0].forEach((v,i) => {
+        })
+        let order = [5, 4, 3, 2, 1, 0];
+        order.forEach((v,i) => {
+            let image = allCell[v].querySelector('img');
+            if(image !== null){
                 setTimeout(()=>{
-                    let image = allCell[v].querySelector('img');
-                    if(image !== null){
-                        let imgWidth = 100;
-                        let imgHeight = 100;
-                        let x = (canvas.width - imgWidth)/2 +canvasPlacement[i][0]*80;
-                        let y = (canvas.width - imgHeight)/2+canvasPlacement[i][1]*80 +60;
-                        ctx.drawImage(image, x, y);
-                    }
-                }, 100 + 100*i)
-            })
+                    let imgWidth = 100;
+                    let imgHeight = 100;
+                    let x = (canvas.width - imgWidth)/2 +canvasPlacement[i][0]*80;
+                    let y = (canvas.width - imgHeight)/2+canvasPlacement[i][1]*80 +60;
+                    ctx.drawImage(image, x, y);
+                }, 50 + 50*i);
+            }
         })
     })
 }
 
+let modalBackground = document.querySelector('.modal-save-background');
+let modal = document.querySelector(".modal-save");
+let isModalClicked = false;
 
+document.querySelector('#saveCard').addEventListener('click', ()=>{
+
+    html2canvas(DOMBenchmark).then(canvas => {
+        modal.appendChild(canvas);
+    })
+    modalBackground.style.display = 'flex';
+})
+modal.addEventListener('click', ()=>{
+    isModalClicked = true;
+})
+modalBackground.addEventListener('click', function (){
+    modal.innerHTML = '';
+    if(!isModalClicked){
+        this.style.display = 'none';
+    }
+    isModalClicked = false;
+})
 
 //LE CODE SUIVANT EST FOURNI EN PARTIE PAR GPTCHAT À LA SUITE DE PROMPTS PAR SOUCI DE TEMPS
 
