@@ -532,7 +532,7 @@ window.onload = async () => {
 const popinfo = document.querySelector('.iconeinfo');
 
 
-
-
+// console.log(document.querySelectorAll('.sticky>.hud>.deck active>.cell'))
+// console.log('ouii')
 
 
