@@ -200,6 +200,7 @@ trash.addEventListener('dblclick', () => {
                 allCell[i].innerHTML = '';
             }, 100*(i%6))
         }
+        refreshStats();
     }
 })
 

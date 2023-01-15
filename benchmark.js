@@ -1,4 +1,4 @@
-let pokeTeam;
+
 let allTeamTypes;
 let score = document.querySelector('h2#score');
 
@@ -50,9 +50,9 @@ function getRank(scoreCalculation) {
 }
 
 async function calculateStats(){
-    pokeTeam = JSON.parse(localStorage.deck).slice(0,6);
     let avgStats = {'HP': 0, 'Attack': 0, 'Defense': 0, 'Special Attack': 0, 'Speed': 0};
-    await Promise.all(pokeTeam.map(async (id) => {
+    console.log(stored_deck.slice(0,6))
+    await Promise.all(stored_deck.slice(0,6).map(async (id) => {
         if(id!==0){
             let data = await getPokemonData(id);
             //remplissage du tableau des types
@@ -76,12 +76,36 @@ async function calculateStats(){
 let DOMStats = document.querySelectorAll('table.stat td.stat');
 let DOMTypeContainer = document.querySelector('div.teamTypes');
 let DOMBenchmark = document.querySelector('.benchmark');
-let canvasPlacement = [[-1,-2],[0,-2],[1,-2], [-0.5,-1], [0.5,-1], [0,0]];
+let canvasPlacement =
+    [
+        [0,0],
+        [1,0],
+        [2,0],
+        [0,1],
+        [1,1],
+        [2,1]
+    ];
 
 
 
-function refreshStats(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function refreshStats(index,value){
+    //affichage du canvas
+    let imgWidth = 80;
+    let imgHeight = 80;
+    let x = canvasPlacement[5-index][0]*100;
+    let y = canvasPlacement[5-index][1]*100 + 25;
+    console.log(index,value);
+    if(value !== 0){
+        let image = allCell[index].querySelector('.img-container > img');
+        image.onload =()=>{
+            image.crossOrigin = 'Anonymous';
+            ctx.drawImage(image, x, y);
+        }
+    }else{
+        //alors on met simplement un rectangle blanc pour nettoyer
+        ctx.clearRect(x, y, imgWidth+20, imgHeight+20)
+    }
+
     allTeamTypes = [];
     calculateStats().then((avgStats)=>{
         DOMTypeContainer.innerHTML = '';
@@ -103,20 +127,6 @@ function refreshStats(){
                     darkenColor(typeColor[type], -0.2)+')';
             }
             DOMTypeContainer.appendChild(span);
-        })
-        let order = [5, 4, 3, 2, 1, 0];
-        order.forEach((v,i) => {
-            let image = allCell[v].querySelector('img');
-            if(image !== null){
-                image.crossOrigin = 'Anonymous';
-                setTimeout(()=>{
-                    let imgWidth = 100;
-                    let imgHeight = 100;
-                    let x = (canvas.width - imgWidth)/2 +canvasPlacement[i][0]*80;
-                    let y = (canvas.width - imgHeight)/2+canvasPlacement[i][1]*80 +60;
-                    ctx.drawImage(image, x, y);
-                }, 50 + 50*i);
-            }
         })
     })
 }
