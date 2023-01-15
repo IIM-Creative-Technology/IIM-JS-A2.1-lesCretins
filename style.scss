@@ -5,7 +5,57 @@
   font-family: 'Gill Sans', sans-serif;
 }
 
+h1,h2,td, h1{
+  font-family: 'Pokemon Solid', sans-serif;
+  letter-spacing: 3px;
+  span{
+    font-family: inherit;
+  }
+}
+
+h1{
+  padding: 30px;
+  text-align: center;
+}
+
+.column-container{
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  .column{
+    width: 500px;
+  }
+}
+
 main{
+  position: relative;
+
+  #saveCard{
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .modal-save-background{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    .modal-save{
+      padding: 20px 50px;
+    }
+  }
+
   .poke-card{
     border-width: 5px;
     border-style: solid;
@@ -14,12 +64,6 @@ main{
     border-radius: 15px;
     height: 175px;
     cursor: grab;
-
-
-
-
-
-
     .img-container{
       display: flex;
       justify-content: center;
@@ -28,59 +72,62 @@ main{
       text-align: center;
       width: 150px;
     }
-
-
-  }
-
-
   }
   .poke-stock{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    background-color: #815757;
     padding: 40px;
-
   }
-
+  .sticky{
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    position: sticky;
+    padding: 30px 0;
+    margin-bottom: 25px;
+  }
   .hud{
     //contains deck & trash
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: fit-content;
-    margin: 25px auto;
+    margin: 0 auto;
     gap: 30px;
   }
-
   .trash{
     height: 100px;
     width: 100px;
     img{
       height: 100%;
-      width: 100%;
+      aspect-ratio: 1/1;
     }
   }
-
   .deck{
-    &.active{
+    &.active {
       display: flex;
     }
-
     display: none;
     gap: 10px;
     flex-wrap: wrap;
     height: 100px;
     width: fit-content;
     .cell{
-kground-color: white;
+      background-color: white;
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.23);
       width: 100px;
       .poke-card{
+        position: relative;
         border-radius: 0;
         border-width: 0 0 10px 0;
         background: transparent;
+        img.info{
+          position: absolute;
+          top: 5px;
+          left: 5px;
+        }
         p{
           display: none;
         }
@@ -103,8 +150,102 @@ kground-color: white;
     gap: 10px;
   }
 
+  .benchmark{
+    position: relative;
+    border: 5px solid yellow;
+    border-radius: 30px;
+    overflow: clip;
+    padding-bottom: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.37);
+    &::before{
+      content: "Team Rank";
+      color: black;
+      display: block;
+      text-align: center;
+      padding: 20px;
+      font-size: 2em;
+    }
 
+    h2#score{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 4em;
+      text-shadow: 5px 5px 0 black;
+      text-align: center;
+      height: 80px;
+      width: 80px;
+      font-weight: bold;
+    }
 
+    @keyframes bounce {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    canvas{
+      background-color: white;
+      display: block;
+      margin: 25px auto;
+      border: 5px inset gold;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    }
 
-
-
+    table.stat{
+      background-color: white;
+      border: 1px solid black;
+      caption-side: bottom;
+      width: 180px;
+      th{
+        &[scope='col']{
+          background-color: black;
+          color: white;
+        }
+        &[scope='row']{
+          background-color: #e5e5e5;
+          text-align: left;
+        }
+        padding: 10px;
+      }
+      td{
+        text-align: center;
+        font-weight: bolder;
+      }
+      caption{
+        font-style: italic;
+        font-size: 0.8em;
+      }
+    }
+    div.teamTypes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      span{
+        display: block;
+        width: fit-content;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 20px;
+        color: white;
+        text-shadow: 0 0 2px black;
+        box-shadow: 0 0 1px black;
+      }
+    }
+    div.capacity{
+      width: 180px;
+      background-color: white;
+      border-radius: 20px;
+      padding: 20px;
+      ul{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
