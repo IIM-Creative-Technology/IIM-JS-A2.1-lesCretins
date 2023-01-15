@@ -217,7 +217,7 @@ function generateCard(pokemon){
             modal = document.createElement('div');
             modal.id = 'modal';
             modal.classList.add('modal');
-            modal.style.position = "absolute";
+            modal.style.position = "fixed";
             modal.style.top = "0";
             modal.style.left = "0";
             modal.style.width = "100%";
@@ -283,6 +283,7 @@ function generateCard(pokemon){
             modalClose.style.borderRadius = "10px";
             modalClose.style.color = "white";
             modalClose.style.fontSize = "20px";
+            modalClose.style.margin = "20px 0";
             modalClose.style.cursor = "pointer";
             modalClose.addEventListener('click', () => {
                     modal.remove();
@@ -301,6 +302,7 @@ function generateCard(pokemon){
             modalEvolve.style.color = "white";
             modalEvolve.style.fontSize = "30px";
             modalEvolve.style.cursor = "pointer";
+            modalEvolve.style.marginBottom = "10px";
 
 
 
