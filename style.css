@@ -240,4 +240,8 @@ main .benchmark div.capacity ul {
   margin-bottom: 10px;
 }
 
+.modal-content img:nth-child(2) {
+  margin: -70px 0;
+}
+
 /*# sourceMappingURL=style.css.map */

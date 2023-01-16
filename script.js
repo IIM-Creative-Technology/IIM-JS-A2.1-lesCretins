@@ -237,7 +237,7 @@ function generateCard(pokemon){
             modal = document.createElement('div');
             modal.id = 'modal';
             modal.classList.add('modal');
-            modal.style.position = "absolute";
+            modal.style.position = "fixed";
             modal.style.top = "0";
             modal.style.left = "0";
             modal.style.width = "100%";
@@ -301,6 +301,7 @@ function generateCard(pokemon){
             modalClose.style.borderRadius = "10px";
             modalClose.style.color = "white";
             modalClose.style.fontSize = "20px";
+            modalClose.style.margin = "20px 0";
             modalClose.style.cursor = "pointer";
             modalClose.addEventListener('click', () => {
                     modal.remove();
@@ -319,6 +320,7 @@ function generateCard(pokemon){
             modalEvolve.style.color = "white";
             modalEvolve.style.fontSize = "30px";
             modalEvolve.style.cursor = "pointer";
+            modalEvolve.style.marginBottom = "10px";
 
             modalEvolve.addEventListener('click', () => {
                 if(pokemon['species']['url'] !== pokemon['forms'][0]['url']){
@@ -349,6 +351,90 @@ function generateCard(pokemon){
 
 
         }
+
+        //afficher les stats
+        let modalStats = document.createElement('div');
+        modalStats.classList.add('modal-stats');
+        modalStats.style.width = "100%";
+        modalStats.style.height = "100%";
+        modalStats.style.display = "flex";
+        modalStats.style.flexDirection = "column";
+        modalStats.style.justifyContent = "center";
+        modalStats.style.alignItems = "center";
+        let modalContent = document.querySelector('.modal-content');
+        modalContent.appendChild(modalStats);
+
+        let modalStatsTitle = document.createElement('h1');
+        modalStatsTitle.innerHTML = "Stats";
+        modalStatsTitle.style.color = "white";
+        modalStats.appendChild(modalStatsTitle);
+
+        let modalStatsList = document.createElement('ul');
+        modalStatsList.style.listStyle = "none";
+        modalStatsList.style.display = "flex";
+        modalStatsList.style.flexDirection = "row";
+        modalStatsList.style.justifyContent = "space-around";
+        modalStatsList.style.alignItems = "center";
+        modalStatsList.style.width = "100%";
+        modalStatsList.style.height = "100%";
+        modalStats.appendChild(modalStatsList);
+
+        for(let i = 0; i < pokemon['stats'].length; i++){
+            let modalStatsItem = document.createElement('li');
+            modalStatsItem.innerHTML = pokemon['stats'][i]['stat']['name'] + " : " + pokemon['stats'][i]['base_stat'];
+            modalStatsItem.style.color = "white";
+            modalStatsItem.style.fontSize = "20px";
+            modalStatsList.appendChild(modalStatsItem);
+        }
+
+        //afficher 4 attaques random
+        let modalAttacks = document.createElement('div');
+        modalAttacks.classList.add('modal-attacks');
+        modalAttacks.style.width = "100%";
+        modalAttacks.style.height = "100%";
+        modalAttacks.style.display = "flex";
+        modalAttacks.style.flexDirection = "column";
+        modalAttacks.style.justifyContent = "center";
+        modalAttacks.style.alignItems = "center";
+        modalContent.appendChild(modalAttacks);
+
+        let modalAttacksTitle = document.createElement('h1');
+        modalAttacksTitle.innerHTML = "Attacks";
+        modalAttacksTitle.style.color = "white";
+        modalAttacks.appendChild(modalAttacksTitle);
+
+        let modalAttacksList = document.createElement('ul');
+        modalAttacksList.style.listStyle = "none";
+        modalAttacksList.style.display = "flex";
+        modalAttacksList.style.flexDirection = "row";
+        modalAttacksList.style.justifyContent = "space-around";
+        modalAttacksList.style.alignItems = "center";
+        modalAttacksList.style.width = "100%";
+        modalAttacksList.style.height = "100%";
+        modalAttacks.appendChild(modalAttacksList);
+
+        let randomAttacks = [];
+        for(let i = 0; i < 4; i++){
+            let random = Math.floor(Math.random() * pokemon['moves'].length);
+            if(!randomAttacks.includes(random)){
+                randomAttacks.push(random);
+            }else{
+                i--;
+            }
+        }
+
+for(let i = 0; i < randomAttacks.length; i++){
+            let modalAttacksItem = document.createElement('li');
+            modalAttacksItem.innerHTML = pokemon['moves'][randomAttacks[i]]['move']['name'];
+            modalAttacksItem.style.color = "white";
+            modalAttacksItem.style.fontSize = "20px";
+            modalAttacksItem.style.backgroundColor = typeColor[pokemon['moves'][randomAttacks[i]]['move']['name']];
+
+            modalAttacksList.appendChild(modalAttacksItem);
+        }
+
+
+
     })
 
 
@@ -360,6 +446,7 @@ function generateCard(pokemon){
     card.classList.add('poke-card');
     card.appendChild(p);
     imgContainer.appendChild(img);
+
     card.appendChild(imgContainer);
     card.appendChild(imginfo);
     card.style.borderColor = typeColor[pokemon['types'][0]['type']['name']]
